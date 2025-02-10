@@ -5,6 +5,8 @@ import {
   LogoutOutlined,
   GlobalOutlined,
 } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
+
 import { Button, Layout, theme, Menu, Modal, Select } from "antd";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { routes } from "../../router/routes";
@@ -18,7 +20,8 @@ const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState("");
-  const [language, setLanguage] = useState("en") // Default language is English
+  const [language, setLanguage] = useState(localStorage.getItem('lang') || 'en') 
+  const { i18n } = useTranslation();
   useEffect(() => {
     // Find the active route and set the selected key based on the current path
     const currentRouteIndex = routes.findIndex(
@@ -35,6 +38,9 @@ const Index = () => {
   const navigate = useNavigate();
   const handleLanguageChange = (value: string) => {
     setLanguage(value)
+    console.log(value)
+    i18n.changeLanguage(value);
+    localStorage.setItem('lang', value);
     // Here you would typically call a function to change the app's language
     // For example: changeAppLanguage(value);
   }

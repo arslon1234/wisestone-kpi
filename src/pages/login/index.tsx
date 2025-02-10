@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-import { Form, Input, Button, Card, message } from "antd"
+import { Form, Input, Button, Card } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 interface LoginFormValues {
   username: string
@@ -11,7 +11,7 @@ interface LoginFormValues {
 }
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const onFinish = async (values: LoginFormValues) => {
    console.log(values)
