@@ -4,5 +4,6 @@
   "logout_desc": "Your session will be closed.",
   "cancel": "Cancel",
   "confirm": "Confirm",
-  "settings": "Settings"
+  "settings": "Settings",
+  "home": "Home"
 }

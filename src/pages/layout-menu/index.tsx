@@ -10,14 +10,13 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { routes } from "../../router/routes";
 const { Option } = Select
 const { Header, Sider, Content } = Layout;
-import logo from '../../assets/wisestone.png'
 import { ProfileDropdown } from "@components";
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState("");
   const [language, setLanguage] = useState(localStorage.getItem('lang') || 'en') 
-  const { i18n} = useTranslation();
+  const { i18n, t} = useTranslation();
   useEffect(() => {
     // Find the active route and set the selected key based on the current path
     const currentRouteIndex = routes.findIndex(
@@ -70,9 +69,8 @@ const Index = () => {
           items={routes.map((item, index) => ({
             key: index.toString(), // Use string keys for consistency
             icon: item.icon,
-            label: <NavLink to={item.path} >{item.title}</NavLink>,
+            label: <NavLink to={item.path} >{t(item.title)}</NavLink>,
           }))}
-          // style={{fontSize: "18px"}}
         />
       </Sider>
       <Layout style={{ marginLeft: collapsed ? 80 : 200 }}>
@@ -95,7 +93,6 @@ const Index = () => {
               height: 64,
             }}
           />
-          <img src={logo} alt="" style={{width: "30%", height: "80%"}}/>
           <div style={{ display: "flex", alignItems: "center", marginRight: '10px' }}>
             <Select
               defaultValue={language}
@@ -113,7 +110,7 @@ const Index = () => {
         <Content
           style={{
             margin: "24px 16px",
-            padding: 24,
+            padding: 20,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,

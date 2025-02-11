@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Form, Input, Button, Card } from "antd"
-import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import { useApiMutation, setAuthToken } from "@hooks"
+import type React from "react";
+import { Form, Input, Button, Card } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useApiMutation, setAuthToken } from "@hooks";
 // import { useNavigate } from "react-router-dom"
-
+import logo from "../../assets/wisestone.png";
+import "./style.css";
 interface LoginFormValues {
-  username: string
-  password: string
+  username: string;
+  password: string;
 }
 
 const LoginPage: React.FC = () => {
@@ -16,60 +17,86 @@ const LoginPage: React.FC = () => {
   const loginMutation = useApiMutation<{ token: string }>({
     url: "/api/login",
     method: "POST",
-  })
+  });
   const onFinish = async (values: LoginFormValues) => {
     try {
-      const result = await loginMutation.mutateAsync(values)
-      setAuthToken(result.token)
+      const result = await loginMutation.mutateAsync(values);
+      setAuthToken(result.token);
       // Token saqlandi, endi autentifikatsiya talab qiladigan so'rovlar yuborish mumkin
     } catch (error) {
-      console.error("Login failed:", error)
+      console.error("Login failed:", error);
     }
-  }
+  };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        background: "#f0f2f5",
-      }}
-    >
-      <Card style={{ width: "40%" }}>
-        <h2 style={{ textAlign: "center", marginBottom: "24px", fontSize: "30px" }}>Login</h2>
-        <Form name="login" initialValues={{ remember: true }} onFinish={onFinish}>
-          <Form.Item
-            name="username"
-            rules={[
-              { required: true, message: "Please enter your username!" },
-              { min: 3, message: "Username must be at least 3 characters long!" },
-            ]}
+    <div className="login-wrapper">
+      <div
+      className="wrapper-item"
+      >
+        <img src={logo} alt="wisestone-logo" />
+        <Card style={{ width: "100%" }}>
+          <h2
+            style={{
+              textAlign: "center",
+              marginBottom: "24px",
+              fontSize: "30px",
+            }}
           >
-            <Input prefix={<UserOutlined />} style={{fontSize: "16px"}} placeholder="Username" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            rules={[
-              { required: true, message: "Please enter the password!" },
-              { min: 6, message: "The password must be at least 6 characters long!" },
-            ]}
+            Login
+          </h2>
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
           >
-            <Input.Password prefix={<LockOutlined />} style={{fontSize: "16px"}} placeholder="Password" />
-          </Form.Item>
+            <Form.Item
+              name="username"
+              rules={[
+                { required: true, message: "Please enter your username!" },
+                {
+                  min: 3,
+                  message: "Username must be at least 3 characters long!",
+                },
+              ]}
+            >
+              <Input
+                prefix={<UserOutlined />}
+                style={{ fontSize: "16px" }}
+                placeholder="Username"
+              />
+            </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: "Please enter the password!" },
+                {
+                  min: 6,
+                  message: "The password must be at least 6 characters long!",
+                },
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                style={{ fontSize: "16px" }}
+                placeholder="Password"
+              />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ width: "100%" }}
+              >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
-
+export default LoginPage;

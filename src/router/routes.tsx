@@ -1,19 +1,13 @@
-import {
-    AppstoreOutlined,
-    SettingOutlined
-  } from "@ant-design/icons";
-  
+import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 export const routes = [
-    {
-      title: "Home",
-      path: "/layout",
-      icon: <AppstoreOutlined />,
-    },
-    {
-      title: "Settings",
-      path: "/layout/settings",
-      icon: <SettingOutlined />,
-    },
-  ];
-  
-;
+  {
+    title: "home",
+    path: "/layout",
+    icon: <AppstoreOutlined />,
+  },
+  {
+    title: "settings",
+    path: "/layout/settings",
+    icon: <SettingOutlined />,
+  },
+];

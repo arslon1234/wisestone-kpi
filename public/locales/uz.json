@@ -4,5 +4,6 @@
   "logout_desc": "Sessiyangiz yopiladi.",
   "cancel": "Bekor qilish",
   "confirm": "Tasdiqlash",
-  "settings": "Sozlamalar"
+  "settings": "Sozlamalar",
+  "home": "Asosiy"
 }
