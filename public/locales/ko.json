@@ -1,7 +1,8 @@
 {
-    "welcome": "환영합니다",
-    "login": "로그인",
-    "username": "사용자 이름",
-    "password": "비밀번호",
-    "submit": "제출"
-  }
+  "logout": "로그아웃",
+  "logout_title": "로그아웃하시겠습니까?",
+  "logout_desc": "세션이 종료됩니다.",
+  "cancel": "취소",
+  "confirm": "확인",
+  "settings": "설정"
+}

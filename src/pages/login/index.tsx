@@ -3,6 +3,7 @@
 import type React from "react"
 import { Form, Input, Button, Card } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import { useApiMutation, setAuthToken } from "@hooks"
 // import { useNavigate } from "react-router-dom"
 
 interface LoginFormValues {
@@ -12,9 +13,18 @@ interface LoginFormValues {
 
 const LoginPage: React.FC = () => {
   // const navigate = useNavigate()
-
+  const loginMutation = useApiMutation<{ token: string }>({
+    url: "/api/login",
+    method: "POST",
+  })
   const onFinish = async (values: LoginFormValues) => {
-   console.log(values)
+    try {
+      const result = await loginMutation.mutateAsync(values)
+      setAuthToken(result.token)
+      // Token saqlandi, endi autentifikatsiya talab qiladigan so'rovlar yuborish mumkin
+    } catch (error) {
+      console.error("Login failed:", error)
+    }
   }
 
   return (

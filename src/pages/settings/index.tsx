@@ -1,9 +1,7 @@
-// import { useTranslation } from 'react-i18next';
-
 const Index = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Settings</h1>
     </div>
   )
 }

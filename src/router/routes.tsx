@@ -1,7 +1,6 @@
 import {
     AppstoreOutlined,
-    // TagsOutlined,
-    // ShopOutlined,
+    SettingOutlined
   } from "@ant-design/icons";
   
 export const routes = [
@@ -9,6 +8,11 @@ export const routes = [
       title: "Home",
       path: "/layout",
       icon: <AppstoreOutlined />,
+    },
+    {
+      title: "Settings",
+      path: "/layout/settings",
+      icon: <SettingOutlined />,
     },
   ];
   

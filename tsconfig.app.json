@@ -9,6 +9,8 @@
     "paths": {
       "@": ["./src"],
       "@pages": ["./src/pages"],
+      "@hooks": ["./src/hooks/useApi.ts"],
+      "@components": ["./src/components"],
     },
     /* Bundler mode */
     "moduleResolution": "bundler",

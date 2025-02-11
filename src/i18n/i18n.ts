@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from '../../public/locales/en.json';
 import ko from '../../public/locales/ko.json';
+import uz from '../../public/locales/uz.json';
 
 i18n
   .use(initReactI18next) // React uchun integratsiya
@@ -11,7 +12,8 @@ i18n
   .init({
     resources: {
       en: { translation: en },
-      ko: { translation: ko }
+      ko: { translation: ko },
+      uz: { translation: uz }
     },
     lng: localStorage.getItem('lang') || 'en', // Saqlangan tilni olish yoki default en
     fallbackLng: 'en', // Agar tarjima topilmasa, ingliz tiliga qaytadi

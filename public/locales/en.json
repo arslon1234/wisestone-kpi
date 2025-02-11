@@ -1,7 +1,8 @@
 {
-    "welcome": "Welcome",
-    "login": "Login",
-    "username": "Username",
-    "password": "Password",
-    "submit": "Submit"
-  }
+  "logout": "Logout",
+  "logout_title": "Do you want to logout?",
+  "logout_desc": "Your session will be closed.",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "settings": "Settings"
+}
