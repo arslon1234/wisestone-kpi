@@ -7,6 +7,7 @@ import {
 import type { MenuProps } from "antd"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { removeItem } from "@utils/storage-service";
 const ProfileDropdown = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const ProfileDropdown = () => {
       content: t("logout_desc"),
       onOk() {
         navigate("/");
+        removeItem('auth-token')
       },
       onCancel() {
         console.log("Cancel clicked");

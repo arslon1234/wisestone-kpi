@@ -2,6 +2,7 @@ import type React from "react";
 import { Form, Input, Button, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useApiMutation } from "@hooks";
+import { setItem } from "@utils/storage-service";
 import { useNavigate } from "react-router-dom"
 import logo from "../../assets/wisestone.png";
 import "./style.css";
@@ -20,6 +21,7 @@ const LoginPage: React.FC = () => {
     try {
       const result = await loginMutation.mutateAsync(values);
       if(result.token){
+        setItem('auth-token', result.token)
         navigate('/layout')
       }
       console.log(result)

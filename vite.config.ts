@@ -11,6 +11,7 @@ export default defineConfig({
       { find: "@hooks", replacement: "/src/hooks/useApi.ts" },
       { find: "@components", replacement: "/src/components" },
       { find: "@utils", replacement: "/src/utils" },
+      { find: "@utils", replacement: "/src/utils" },
     ],
   },
 })

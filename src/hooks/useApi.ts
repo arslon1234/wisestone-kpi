@@ -1,26 +1,12 @@
 import { useQuery, useMutation, type UseQueryOptions, type UseMutationOptions } from "@tanstack/react-query"
 import { Notification } from "@utils/notification"
+import { getItem } from "@utils/storage-service"
 type ApiMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 interface ApiOptions {
   url: string
   method?: ApiMethod
   headers?: Record<string, string>
   withAuth?: boolean
-}
-
-// get token
-const getAuthToken = (): string | null => {
-    return localStorage.getItem("authToken")
-}
-
-// save token
-export const setAuthToken = (token: string) => {
-    localStorage.setItem("authToken", token)
-}
-
-// remove token
-export const clearAuthToken = () => {
-    localStorage.removeItem("authToken")
 }
 
 async function fetchApi<T>(
@@ -33,7 +19,7 @@ async function fetchApi<T>(
   }
 
   if (withAuth) {
-    const token = getAuthToken()
+    const token = getItem('auth-token')
     if (token) {
       requestHeaders["Authorization"] = `Bearer ${token}`
     }
