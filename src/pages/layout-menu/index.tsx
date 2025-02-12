@@ -122,8 +122,7 @@ const Index = () => {
               suffixIcon={<GlobalOutlined />}
             >
               <Option value="en">English</Option>
-              <Option value="ko">한국어</Option>
-              <Option value="uz">Uzbek</Option>
+              <Option value="kr">한국어</Option>
             </Select>
             <ProfileDropdown />
           </div>

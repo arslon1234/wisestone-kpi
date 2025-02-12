@@ -7,5 +7,13 @@
   "settings": "Settings",
   "home": "Home",
   "role": "Role",
-  "user": "User"
+  "user": "User",
+  "create_role": "Create role",
+  "edit_role": "Edit role",
+  "create": "Create",
+  "update": "Update",
+  "role_name_en": "Role name: en",
+  "role_name_kr": "Role name: kr",
+  "role_placeholer_en": "Enter role name in english",
+  "role_placeholer_kr": "Enter role name in korean"
 }

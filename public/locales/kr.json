@@ -1,0 +1,19 @@
+{
+  "logout": "로그아웃",
+  "logout_title": "로그아웃하시겠습니까?",
+  "logout_desc": "세션이 종료됩니다.",
+  "cancel": "취소",
+  "confirm": "확인",
+  "settings": "설정",
+  "home": "홈 페이지",
+  "role": "역할",
+  "user": "사용자",
+  "create_role": "역할 생성",
+  "edit_role": "역할 수정",
+  "create": "생성",
+  "update": "업데이트",
+  "role_name_en": "역할 이름: 영어",
+  "role_name_kr": "역할 이름: 한국어",
+  "role_placeholer_en": "영어로 역할 이름을 입력하세요",
+  "role_placeholer_kr": "한국어로 역할 이름을 입력하세요"
+}

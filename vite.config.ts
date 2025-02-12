@@ -12,6 +12,7 @@ export default defineConfig({
       { find: "@components", replacement: "/src/components" },
       { find: "@utils", replacement: "/src/utils" },
       { find: "@utils", replacement: "/src/utils" },
+      { find: "@types", replacement: "/src/types" },
     ],
   },
 })
