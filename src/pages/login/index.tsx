@@ -1,10 +1,8 @@
-"use client";
-
 import type React from "react";
 import { Form, Input, Button, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useApiMutation, setAuthToken } from "@hooks";
-// import { useNavigate } from "react-router-dom"
+import { useApiMutation } from "@hooks";
+import { useNavigate } from "react-router-dom"
 import logo from "../../assets/wisestone.png";
 import "./style.css";
 interface LoginFormValues {
@@ -13,16 +11,18 @@ interface LoginFormValues {
 }
 
 const LoginPage: React.FC = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const loginMutation = useApiMutation<{ token: string }>({
-    url: "/api/login",
+    url: "auth/login",
     method: "POST",
   });
   const onFinish = async (values: LoginFormValues) => {
     try {
       const result = await loginMutation.mutateAsync(values);
-      setAuthToken(result.token);
-      // Token saqlandi, endi autentifikatsiya talab qiladigan so'rovlar yuborish mumkin
+      if(result.token){
+        navigate('/layout')
+      }
+      console.log(result)
     } catch (error) {
       console.error("Login failed:", error);
     }

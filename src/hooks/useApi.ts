@@ -1,7 +1,6 @@
 import { useQuery, useMutation, type UseQueryOptions, type UseMutationOptions } from "@tanstack/react-query"
-
+import { Notification } from "@utils/notification"
 type ApiMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
-
 interface ApiOptions {
   url: string
   method?: ApiMethod
@@ -49,7 +48,7 @@ async function fetchApi<T>(
     options.body = JSON.stringify(body)
   }
 
-  const response = await fetch(url, options)
+  const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${url}`, options)
 
   if (!response.ok) {
     throw new Error("API request failed")
@@ -75,6 +74,12 @@ export function useApiMutation<T>(
 ) {
   return useMutation<T, Error, any>({
     mutationFn: (variables) => fetchApi<T>(options, variables),
+    onSuccess:()=>{
+      Notification("success", "Success: Data loaded successfully!")
+    },
+    onError:(error)=>{
+      Notification("error", `Error: ${error.message}`)
+    },
     ...mutationOptions,
   })
 }

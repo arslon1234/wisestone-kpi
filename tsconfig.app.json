@@ -11,6 +11,7 @@
       "@pages": ["./src/pages"],
       "@hooks": ["./src/hooks/useApi.ts"],
       "@components": ["./src/components"],
+      "@utils/*": ["./src/utils/*"],
     },
     /* Bundler mode */
     "moduleResolution": "bundler",

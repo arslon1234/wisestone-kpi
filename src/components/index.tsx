@@ -1,3 +1,3 @@
 import ProfileDropdown from "./profile-dropdown";
-
-export {ProfileDropdown}
+import Table from './global-table'
+export {ProfileDropdown, Table}
