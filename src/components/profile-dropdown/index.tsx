@@ -21,7 +21,7 @@ const ProfileDropdown = () => {
       content: t("logout_desc"),
       onOk() {
         navigate("/");
-        removeItem('auth-token')
+        removeItem('access_token')
       },
       onCancel() {
         console.log("Cancel clicked");

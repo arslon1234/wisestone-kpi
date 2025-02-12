@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
     try {
       const result = await loginMutation.mutateAsync(values);
       if(result.token){
-        setItem('auth-token', result.token)
+        setItem('access_token', result.token)
         navigate('/layout')
       }
       console.log(result)

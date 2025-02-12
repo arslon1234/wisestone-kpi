@@ -19,7 +19,7 @@ async function fetchApi<T>(
   }
 
   if (withAuth) {
-    const token = getItem('auth-token')
+    const token = getItem('access_token')
     if (token) {
       requestHeaders["Authorization"] = `Bearer ${token}`
     }
