@@ -5,5 +5,7 @@
   "cancel": "취소",
   "confirm": "확인",
   "settings": "설정",
-  "home": "홈 페이지"
+  "home": "홈 페이지",
+  "role": "역할",
+  "user": "사용자"
 }

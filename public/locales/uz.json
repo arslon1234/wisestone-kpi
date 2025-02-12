@@ -5,5 +5,7 @@
   "cancel": "Bekor qilish",
   "confirm": "Tasdiqlash",
   "settings": "Sozlamalar",
-  "home": "Asosiy"
+  "home": "Asosiy",
+  "role": "Rol",
+  "user": "Foydalanuvchi"
 }

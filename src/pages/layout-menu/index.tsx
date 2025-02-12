@@ -4,38 +4,44 @@ import {
   MenuUnfoldOutlined,
   GlobalOutlined,
 } from "@ant-design/icons";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { Button, Layout, theme, Menu, Select } from "antd";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { routes } from "../../router/routes";
-const { Option } = Select
+const { Option } = Select;
 const { Header, Sider, Content } = Layout;
 import { ProfileDropdown } from "@components";
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState("");
-  const [language, setLanguage] = useState(localStorage.getItem('lang') || 'en') 
-  const { i18n, t} = useTranslation();
+  const [language, setLanguage] = useState(
+    localStorage.getItem("lang") || "en"
+  );
+  const { i18n, t } = useTranslation();
   useEffect(() => {
-    // Find the active route and set the selected key based on the current path
-    const currentRouteIndex = routes.findIndex(
-      route => route.path === location.pathname
-    );
-    console.log(currentRouteIndex);
-    if (currentRouteIndex !== -1) {
-      setSelectedKey(currentRouteIndex.toString());
-    }
+    // Hozirgi `pathname` bo‘yicha to‘g‘ri `key` ni topish
+    routes.forEach((item, index) => {
+      if (item.path === location.pathname) {
+        setSelectedKey(index.toString());
+      } else if (item.children) {
+        item.children.forEach((child, childIndex) => {
+          if (child.path === location.pathname) {
+            setSelectedKey(`${index}-${childIndex}`);
+          }
+        });
+      }
+    });
   }, [location.pathname]);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const handleLanguageChange = (value: string) => {
-    setLanguage(value)
-    console.log(value)
+    setLanguage(value);
+    console.log(value);
     i18n.changeLanguage(value);
-    localStorage.setItem('lang', value);
-  }
+    localStorage.setItem("lang", value);
+  };
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -60,16 +66,25 @@ const Index = () => {
             padding: collapsed ? "16px 8px" : "20px",
             marginBottom: "16px",
           }}
-        >
-        </div>
+        ></div>
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[selectedKey]} // Dynamically set selected keys
+          selectedKeys={[selectedKey]}
           items={routes.map((item, index) => ({
-            key: index.toString(), // Use string keys for consistency
+            key: index.toString(),
             icon: item.icon,
-            label: <NavLink to={item.path} >{t(item.title)}</NavLink>,
+            label: item.children ? (
+              t(item.title)
+            ) : (
+              <NavLink to={item.path}>{t(item.title)}</NavLink>
+            ),
+            children: item.children
+              ? item.children.map((child, childIndex) => ({
+                  key: `${index}-${childIndex}`,
+                  label: <NavLink to={child.path}>{t(child.title)}</NavLink>,
+                }))
+              : undefined,
           }))}
         />
       </Sider>
@@ -93,7 +108,13 @@ const Index = () => {
               height: 64,
             }}
           />
-          <div style={{ display: "flex", alignItems: "center", marginRight: '10px' }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: "10px",
+            }}
+          >
             <Select
               defaultValue={language}
               style={{ width: 120, marginRight: 16 }}
@@ -104,7 +125,7 @@ const Index = () => {
               <Option value="ko">한국어</Option>
               <Option value="uz">Uzbek</Option>
             </Select>
-            <ProfileDropdown/>
+            <ProfileDropdown />
           </div>
         </Header>
         <Content

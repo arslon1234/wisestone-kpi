@@ -5,5 +5,7 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "settings": "Settings",
-  "home": "Home"
+  "home": "Home",
+  "role": "Role",
+  "user": "User"
 }

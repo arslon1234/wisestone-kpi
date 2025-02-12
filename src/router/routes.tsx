@@ -7,7 +7,16 @@ export const routes = [
   },
   {
     title: "settings",
-    path: "/layout/settings",
     icon: <SettingOutlined />,
+    children: [
+      {
+        path: "/layout/role",
+        title: "role",
+      },
+      {
+        path: "/layout/user",
+        title: "user",
+      },
+    ],
   },
 ];

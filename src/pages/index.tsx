@@ -4,5 +4,6 @@ import { ProtectedLayout } from './protect-route';
 const Login = lazy(() => import('./login'));
 const LayoutMenu = lazy(() => import('./layout-menu'));
 const Home = lazy(() => import('./home'));
-const Settings = lazy(() => import('./settings'));
-export {Login,LayoutMenu, Home, Settings, ProtectedAuth, ProtectedLayout}
+const Role = lazy(() => import('./role'));
+const User = lazy(() => import('./user'));
+export {Login,LayoutMenu, Home, ProtectedAuth, ProtectedLayout, Role, User}
