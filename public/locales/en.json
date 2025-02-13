@@ -1,4 +1,6 @@
 {
+  "yes": "Yes",
+  "no": "No",
   "logout": "Logout",
   "logout_title": "Do you want to logout?",
   "logout_desc": "Your session will be closed.",
@@ -15,5 +17,9 @@
   "role_name_en": "Role name: en",
   "role_name_kr": "Role name: kr",
   "role_placeholer_en": "Enter role name in english",
-  "role_placeholer_kr": "Enter role name in korean"
+  "role_placeholer_kr": "Enter role name in korean",
+  "delete": "Delete",
+  "delete_task": "Delete the item",
+  "delete_desc": "Are you sure to delete this item?",
+  "action": "Action"
 }

@@ -7,12 +7,14 @@ import { useApiMutation } from "@hooks";
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
   const [form] = useForm();
-  const { mutateAsync: createItem, isPending } = useApiMutation<any>({ url: "roles", method: "POST" });
+  const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "roles", method: "POST" });
+  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "roles", method: "PUT" });
   useEffect(() => {
     if (open) {
       if (update) {
         form.setFieldsValue({
-          name: update.name,
+          name_en: update.name_en,
+          name_kr: update.name_kr,
         });
       } else {
         form.resetFields();
@@ -20,14 +22,24 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     }
   }, [open, update, form]);
   const handleSubmit = async (values: any) => {
-    try {
-      const res = await createItem({ data: values });
-      if(res.status == 201){
-       handleCancel()
+    if(update){
+      try {
+        const res = await updateItem({id: update.id, data: values });
+        if(res.status == 200){
+         handleCancel()
+        }
+      } catch (error) {
+        console.error(error, "ERROR");
       }
-     
-    } catch (error) {
-      console.error(error, "Xatolik");
+    }else{
+      try {
+        const res = await createItem({ data: values });
+        if(res.status == 201){
+         handleCancel()
+        }
+      } catch (error) {
+        console.error(error, "ERROR");
+      }
     }
   };
 
@@ -68,7 +80,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
               type="primary"
               className="btn"
               htmlType="submit"
-              loading={isPending}
+              loading={isCreating || isUpdating}
             >
               {update ? t('update') : t('create')}
             </Button>

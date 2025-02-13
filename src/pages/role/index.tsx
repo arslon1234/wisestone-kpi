@@ -12,6 +12,7 @@ const Index = () => {
   const {t} = useTranslation()
   const [modalVisible, setModalVisible] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams();
+  const [update,setUpdate] = useState(null)
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
@@ -37,7 +38,8 @@ const Index = () => {
     }));
   }, [searchParams]);
   const editData =(item: any)=>{
-    console.log(item)
+    setUpdate(item)
+    setModalVisible(true)
   }
   const columns = [
     {
@@ -47,19 +49,19 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: "Name english",
+      title: t('role_name_en'),
       dataIndex: "name_en",
     },
     {
-      title: "Name korean",
+      title: t("role_name_kr"),
       dataIndex: "name_kr",
     },
     {
-      title: "Action",
+      title: t("action"),
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Tooltip title="Edit">
+          <Tooltip title={t('update')}>
             <Button
               type="default"
               onClick={() => editData(record)}
@@ -83,9 +85,13 @@ const Index = () => {
       limit: String(pageSize),
     });
   }
+  const handleCancel =()=>{
+    setModalVisible(false)
+    setUpdate(null)
+  }
   return (
     <>
-    <Modal open={modalVisible} handleCancel={()=>setModalVisible(false)}/>
+    <Modal open={modalVisible} update={update} handleCancel={handleCancel}/>
     <div className="wrapper">
         <h1>{t('role')}</h1>
         <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>

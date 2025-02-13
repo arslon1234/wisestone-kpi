@@ -1,4 +1,6 @@
 {
+  "yes": "예",
+  "no": "아니요",
   "logout": "로그아웃",
   "logout_title": "로그아웃하시겠습니까?",
   "logout_desc": "세션이 종료됩니다.",
@@ -15,5 +17,9 @@
   "role_name_en": "역할 이름: 영어",
   "role_name_kr": "역할 이름: 한국어",
   "role_placeholer_en": "영어로 역할 이름을 입력하세요",
-  "role_placeholer_kr": "한국어로 역할 이름을 입력하세요"
+  "role_placeholer_kr": "한국어로 역할 이름을 입력하세요",
+  "delete": "삭제",
+  "delete_task": "항목 삭제",
+  "delete_desc": "이 항목을 삭제하시겠습니까?",
+  "action": "액션"
 }
