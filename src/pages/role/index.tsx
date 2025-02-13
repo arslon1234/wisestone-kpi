@@ -1,9 +1,10 @@
-import { Button } from "antd"
+import { Button, Space, Tooltip } from "antd"
+import { EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
-import { useApiQuery } from "@hooks";
-import { Table } from "@components";
+import { useApiQuery, useApiMutation } from "@hooks";
+import { Table, ConfirmDelete } from "@components";
 import Modal from './modal'
 import './style.css'
 
@@ -19,8 +20,11 @@ const Index = () => {
     url: "roles",
     method: "GET",
     params,
-    withAuth: true, // If authentication is required
   });
+  const { mutate: deleteItem } = useApiMutation({ url: "roles", method: "DELETE"});
+  const handleDelete =(id: any)=>{
+    deleteItem({id})
+  }
   useEffect(() => {
     const pageFromParams = searchParams.get("page") || "1";
     const limitFromParams = searchParams.get("limit") || "5";
@@ -32,7 +36,9 @@ const Index = () => {
       search: searchFromParams,
     }));
   }, [searchParams]);
-  console.log(data?.data?.teams, 'roles')
+  const editData =(item: any)=>{
+    console.log(item)
+  }
   const columns = [
     {
       title: "#",
@@ -48,29 +54,22 @@ const Index = () => {
       title: "Name korean",
       dataIndex: "name_kr",
     },
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (_: any, record: any) => (
-    //     <Space size="middle">
-    //       <Tooltip title="Edit">
-    //         <Button
-    //           type="default"
-    //           onClick={() => editData(record)}
-    //           icon={<EditOutlined />}
-    //         />
-    //       </Tooltip>
-    //       <ConfirmDelete id={record.id} deleteItem={(id:string | number)=>mutate(id)} />
-    //       <Tooltip title="product-detail">
-    //         <Button
-    //           type="default"
-    //           onClick={() => navigate(`/layout/product/${record.id}`)}
-    //           icon={<ArrowsAltOutlined />}
-    //         />
-    //       </Tooltip>
-    //     </Space>
-    //   ),
-    // },
+    {
+      title: "Action",
+      key: "action",
+      render: (_: any, record: any) => (
+        <Space size="middle">
+          <Tooltip title="Edit">
+            <Button
+              type="default"
+              onClick={() => editData(record)}
+              icon={<EditOutlined />}
+            />
+          </Tooltip>
+          <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
+        </Space>
+      ),
+    },
   ];
   const handleTableChange =(pagination: any)=>{
     const { current = 1, pageSize = 5 } = pagination;
@@ -93,7 +92,7 @@ const Index = () => {
           {t('create_role')}
         </Button>
     </div>
-    <Table data={data?.data?.teams}
+    <Table data={data?.data?.items}
         columns={columns} pagination={{
           current: params.page,
           pageSize: params.limit,

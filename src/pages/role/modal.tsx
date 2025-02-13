@@ -7,10 +7,7 @@ import { useApiMutation } from "@hooks";
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
   const [form] = useForm();
-  const roleMutation = useApiMutation<{ token: string }>({
-    url: "roles",
-    method: "POST",
-  });
+  const { mutateAsync: createItem, isPending } = useApiMutation<any>({ url: "roles", method: "POST" });
   useEffect(() => {
     if (open) {
       if (update) {
@@ -23,8 +20,15 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     }
   }, [open, update, form]);
   const handleSubmit = async (values: any) => {
-    const res = await roleMutation.mutateAsync(values);
-    console.log(res, 'res')
+    try {
+      const res = await createItem({ data: values });
+      if(res.status == 201){
+       handleCancel()
+      }
+     
+    } catch (error) {
+      console.error(error, "Xatolik");
+    }
   };
 
   return (
@@ -64,7 +68,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
               type="primary"
               className="btn"
               htmlType="submit"
-            //   loading={isCreating || isUpdating}
+              loading={isPending}
             >
               {update ? t('update') : t('create')}
             </Button>
