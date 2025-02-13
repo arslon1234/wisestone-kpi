@@ -10,23 +10,13 @@ interface LoginFormValues {
   username: string;
   password: string;
 }
-interface AuthResponse {
-  data: {
-    token: string
-  },
-  status: number
-}
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate()
-  const loginMutation = useApiMutation<AuthResponse>({
-    url: "auth/login",
-    method: "POST",
-  });
+  const { mutateAsync: createItem, isPending } = useApiMutation<any>({ url: "auth/login", method: "POST" });
   const onFinish = async (values: LoginFormValues) => {
     try {
-      const result = await loginMutation.mutateAsync(values);
-      console.log(result, )
+      const result = await createItem({ data: values });
       if(result?.status === 200){
         setItem('access_token', result?.data?.token)
         navigate('/layout')
@@ -97,6 +87,7 @@ const LoginPage: React.FC = () => {
                 type="primary"
                 htmlType="submit"
                 style={{ width: "100%" }}
+                loading={isPending}
               >
                 Submit
               </Button>

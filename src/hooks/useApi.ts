@@ -65,7 +65,7 @@ export function useApiMutation<T>(
   options: ApiOptions,
   mutationOptions?: Omit<UseMutationOptions<T, Error, any>, "mutationFn">,
 ) {
-  const queryClient = useQueryClient(); // ✅ QueryClient'ni olish
+  const queryClient = useQueryClient(); 
 
   return useMutation<T, Error, { data?: any; id?: string | number }>({
     mutationFn: async ({ data, id }) => {
@@ -74,7 +74,7 @@ export function useApiMutation<T>(
     },
     onSuccess: (data) => {
       Notification("success", `Success: ${(data as any)?.message || 'Operation successful'}!`);
-      queryClient.invalidateQueries({ queryKey: [options.url] }); // ✅ Ma’lumotni yangilash
+      queryClient.invalidateQueries({ queryKey: [options.url] }); 
     },
     onError: (error) => {
       Notification("error", `Error: ${error.message}`);
