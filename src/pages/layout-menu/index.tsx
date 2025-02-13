@@ -38,7 +38,6 @@ const Index = () => {
   } = theme.useToken();
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
-    console.log(value);
     i18n.changeLanguage(value);
     localStorage.setItem("lang", value);
   };

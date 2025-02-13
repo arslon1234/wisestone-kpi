@@ -7,7 +7,6 @@ import {
 
 import App from "../App";
 import { Login, Role, User, LayoutMenu, Home, ProtectedAuth, ProtectedLayout} from "@pages";
-
 const Index = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(

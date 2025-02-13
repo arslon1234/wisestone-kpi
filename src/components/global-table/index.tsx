@@ -5,9 +5,10 @@ interface CustomTableProps {
   pagination: TablePaginationConfig;
   onChange: (pagination: TablePaginationConfig) => void;
   columns: any[];
+  loading?: boolean
 }
 
-const Index = ({ data, pagination, onChange, columns }: CustomTableProps) => {
+const Index = ({ data, pagination, onChange, columns, loading }: CustomTableProps) => {
   return (
     <AntdTable
       columns={columns}
@@ -16,6 +17,7 @@ const Index = ({ data, pagination, onChange, columns }: CustomTableProps) => {
       onChange={(pagination) => onChange(pagination)}
       rowKey={(record) => record.id || `${record.name}_${Math.random()}`}  // Ensure a unique key
       bordered
+      loading={loading}
     />
   );
 };

@@ -1,4 +1,4 @@
-// MODAL PROPS
+// MODAL PROPS TYPE
 export interface ModalPropType {
     id?: number | string
     open: boolean,

@@ -3,9 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "antd/lib/form/Form";
 import { useEffect } from "react";
 import { ModalPropType } from "@types";
+import { useApiMutation } from "@hooks";
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
   const [form] = useForm();
+  const roleMutation = useApiMutation<{ token: string }>({
+    url: "roles",
+    method: "POST",
+  });
   useEffect(() => {
     if (open) {
       if (update) {
@@ -17,8 +22,9 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
       }
     }
   }, [open, update, form]);
-  const handleSubmit = (values: any) => {
-   console.log(values)
+  const handleSubmit = async (values: any) => {
+    const res = await roleMutation.mutateAsync(values);
+    console.log(res, 'res')
   };
 
   return (
@@ -51,7 +57,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
           >
             <Input size="large" placeholder={t('role_placeholer_kr')}/>
           </Form.Item>
-
           <Form.Item>
             <Button
               size="large"

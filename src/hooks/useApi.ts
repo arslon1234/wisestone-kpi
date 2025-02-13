@@ -44,14 +44,21 @@ async function fetchApi<T>(
 }
 
 export function useApiQuery<T>(
-  options: ApiOptions,
+  options: ApiOptions & { params?: { page: number; limit: number } }, // pagination object
   queryOptions?: Omit<UseQueryOptions<T, Error>, "queryKey" | "queryFn">,
 ) {
+  const { url, params, ...restOptions } = options;
+  const page = params?.page ?? 1;
+  const limit = params?.limit ?? 10;
+
   return useQuery<T, Error>({
-    queryKey: [options.url],
-    queryFn: () => fetchApi<T>(options),
+    queryKey: [url, params], // Pagination object queryKey ga kiritildi
+    queryFn: () =>
+      fetchApi<T>(
+        { ...restOptions, url: `${url}?page=${page}&limit=${limit}` } // URL ichida pagination qo'shildi
+      ),
     ...queryOptions,
-  })
+  });
 }
 
 export function useApiMutation<T>(
@@ -60,8 +67,8 @@ export function useApiMutation<T>(
 ) {
   return useMutation<T, Error, any>({
     mutationFn: (variables) => fetchApi<T>(options, variables),
-    onSuccess:()=>{
-      Notification("success", "Success: Data loaded successfully!")
+    onSuccess:(data)=>{
+      Notification("success", `Success: ${(data as any)?.message || 'Operation successful'}!`);
     },
     onError:(error)=>{
       Notification("error", `Error: ${error.message}`)
