@@ -11,7 +11,9 @@
   "role": "역할",
   "user": "사용자",
   "create_role": "역할 생성",
+  "create_user": "사용자 생성",
   "edit_role": "역할 수정",
+  "edit_user": "사용자 편집",
   "create": "생성",
   "update": "업데이트",
   "role_name_en": "역할 이름: 영어",
@@ -21,5 +23,13 @@
   "delete": "삭제",
   "delete_task": "항목 삭제",
   "delete_desc": "이 항목을 삭제하시겠습니까?",
-  "action": "액션"
+  "action": "액션",
+  "username": "사용자 이름",
+  "password": "비밀번호",
+  "enter_username": "사용자 이름을 입력하세요",
+  "enter_password": "비밀번호를 입력하세요",
+  "select_role": "역할을 선택하세요",
+  "full_name_en": "전체 이름: 영어",
+  "full_name_kr": "전체 이름: 한국어",
+  "email": "이메일"
 }

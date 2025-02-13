@@ -11,7 +11,9 @@
   "role": "Role",
   "user": "User",
   "create_role": "Create role",
+  "create_user": "Create user",
   "edit_role": "Edit role",
+  "edit_user": "Edit user",
   "create": "Create",
   "update": "Update",
   "role_name_en": "Role name: en",
@@ -21,5 +23,13 @@
   "delete": "Delete",
   "delete_task": "Delete the item",
   "delete_desc": "Are you sure to delete this item?",
-  "action": "Action"
+  "action": "Action",
+  "username": "Username",
+  "password": "Password",
+  "enter_username": "Enter your username",
+  "enter_password": "Enter your password",
+  "select_role": "Select role",
+  "full_name_en": "Full name:en",
+  "full_name_kr": "Full name:kr",
+  "email": "Email"
 }

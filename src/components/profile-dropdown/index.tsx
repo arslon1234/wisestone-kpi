@@ -12,7 +12,7 @@ const ProfileDropdown = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const onSettingsClick = () => {
-    navigate('/layout/settings')
+    navigate('/layout/role')
   };
   const onLogout = () => {
     Modal.confirm({
