@@ -1,6 +1,7 @@
 import { Input } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 interface SearchProps {
   params: {
     multi_search: string;
@@ -15,7 +16,15 @@ const Index = (props: SearchProps) => {
   const { params, setParams } = props;
   const navigate = useNavigate();
   const location = useLocation(); 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchQuery = searchParams.get("search") || ""; 
 
+    setParams((prev) => ({
+      ...prev,
+      multi_search: searchQuery,
+    }));
+  }, [location.search, setParams]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchValue = e.target.value;
 

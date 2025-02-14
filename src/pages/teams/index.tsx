@@ -1,14 +1,15 @@
 import { Button, Space, Tooltip } from "antd"
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete, Search } from "@components";
 import Modal from './modal'
 
 const Index = () => {
   const {t} = useTranslation()
+  const navigate = useNavigate()
   const [modalVisible, setModalVisible] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams();
   const [update,setUpdate] = useState(null)
@@ -22,7 +23,6 @@ const Index = () => {
     method: "GET",
     params,
   });
-  console.log(data, 'users')
   const { mutate: deleteItem } = useApiMutation({ url: "teams", method: "DELETE"});
   const handleDelete =(id: any)=>{
     deleteItem({id})
@@ -86,6 +86,13 @@ const Index = () => {
             />
           </Tooltip>
           <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
+          <Tooltip title={t('single_page')}>
+            <Button
+              type="default"
+              onClick={()=>navigate(`/layout/team/${record.id}`)}
+              icon={<ArrowRightOutlined />}
+            />
+          </Tooltip>
         </Space>
       ),
     },

@@ -39,5 +39,11 @@
   "desc_kr": "Description: kr",
   "placeholder_desc_en": "Enter description in english",
   "placeholder_desc_kr": "Enter description in korean",
-  "search": "Search..."
+  "search": "Search...",
+  "single_page": "Single page",
+  "team_members": "Team members",
+  "create_team_member": "Create team member",
+  "update_team_member": "Create team member",
+  "select_user": "Select user",
+  "full_name": "Full name"
 }

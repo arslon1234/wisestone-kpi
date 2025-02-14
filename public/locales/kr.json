@@ -39,5 +39,11 @@
   "desc_kr": "설명: 한국어",
   "placeholder_desc_en": "영어로 설명을 입력하세요",
   "placeholder_desc_kr": "한국어로 설명을 입력하세요",
-  "search": "검색..."
+  "search": "검색...",
+  "single_page": "단일 페이지",
+  "team_members": "팀 멤버",
+  "create_team_member": "팀 멤버 생성",
+  "update_team_member": "팀 멤버 수정",
+  "select_user": "사용자 선택",
+  "full_name": "전체 이름"
 }

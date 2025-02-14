@@ -48,11 +48,11 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('role_name_en'),
+      title: t('name_en'),
       dataIndex: "name_en",
     },
     {
-      title: t("role_name_kr"),
+      title: t("name_kr"),
       dataIndex: "name_kr",
     },
     {

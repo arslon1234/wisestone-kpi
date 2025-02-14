@@ -46,7 +46,7 @@ async function fetchApi<T>(
 }
 
 export function useApiQuery<T>(
-  options: ApiOptions & { params?: Record<string, string | number> }, 
+  options: ApiOptions & { params?: any }, 
   queryOptions?: Omit<UseQueryOptions<T, Error>, "queryKey" | "queryFn">
 ) {
   const { url, params, ...restOptions } = options;

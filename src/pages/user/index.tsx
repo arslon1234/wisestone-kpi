@@ -21,7 +21,6 @@ const Index = () => {
     method: "GET",
     params,
   });
-  console.log(data, 'users')
   const { mutate: deleteItem } = useApiMutation({ url: "users", method: "DELETE"});
   const handleDelete =(id: any)=>{
     deleteItem({id})
