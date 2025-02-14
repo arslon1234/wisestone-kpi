@@ -7,3 +7,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.search_btn{
+  display: flex;
+  gap: 15px;
+}
+.search-input{
+  width: 400px;
+}
+
+@media (max-width: 1200px) {
+  .search-input{
+    width: 100%;
+  }
+}

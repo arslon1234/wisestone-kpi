@@ -17,6 +17,10 @@ export const routes = [
         path: "/layout/user",
         title: "user",
       },
+      {
+        path: "/layout/team",
+        title: "team",
+      },
     ],
   },
 ];

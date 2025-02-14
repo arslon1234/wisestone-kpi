@@ -1,10 +1,10 @@
-import { Button, Space } from "antd"
-// import { EditOutlined } from "@ant-design/icons";
+import { Button, Space, Tooltip } from "antd"
+import { EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
-import { Table, ConfirmDelete } from "@components";
+import { Table, ConfirmDelete, Search } from "@components";
 import Modal from './modal'
 
 const Index = () => {
@@ -15,14 +15,15 @@ const Index = () => {
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
+    multi_search: ""
   });
   const { data, isLoading } = useApiQuery<{ message: string; data: any }>({
-    url: "users",
+    url: "teams",
     method: "GET",
     params,
   });
   console.log(data, 'users')
-  const { mutate: deleteItem } = useApiMutation({ url: "users", method: "DELETE"});
+  const { mutate: deleteItem } = useApiMutation({ url: "teams", method: "DELETE"});
   const handleDelete =(id: any)=>{
     deleteItem({id})
   }
@@ -37,10 +38,10 @@ const Index = () => {
       search: searchFromParams,
     }));
   }, [searchParams]);
-  // const editData =(item: any)=>{
-  //   setUpdate(item)
-  //   setModalVisible(true)
-  // }
+  const editData =(item: any)=>{
+    setUpdate(item)
+    setModalVisible(true)
+  }
   const columns = [
     {
       title: "#",
@@ -49,33 +50,41 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('full_name_en'),
-      dataIndex: "full_name_en",
+      title: t('name_en'),
+      dataIndex: "name_en",
     },
     {
-      title: t('full_name_kr'),
-      dataIndex: "full_name_kr",
+      title: t('name_kr'),
+      dataIndex: "name_kr",
     },
     {
-      title: t("username"),
-      dataIndex: "username",
+      title: t('desc_en'),
+      dataIndex: "description_en",
+      render: (text: string) => (
+        <Tooltip title={text}>
+          <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", maxWidth: 200 }}>
+            {text}
+          </span>
+        </Tooltip>
+      ),
     },
     {
-      title: t("email"),
-      dataIndex: "email",
+      title: t('desc_kr'),
+      dataIndex: "description_kr",
+      ellipsis: true,
     },
     {
       title: t("action"),
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          {/* <Tooltip title={t('update')}>
+          <Tooltip title={t('update')}>
             <Button
               type="default"
               onClick={() => editData(record)}
               icon={<EditOutlined />}
             />
-          </Tooltip> */}
+          </Tooltip>
           <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
         </Space>
       ),
@@ -101,10 +110,13 @@ const Index = () => {
     <>
     {modalVisible && <Modal open={modalVisible} update={update} handleCancel={handleCancel}/>}
     <div className="wrapper">
-        <h1>{t('user')}</h1>
+        <h1>{t('team')}</h1>
+       <div className="search_btn">
+       <Search params={params} setParams={setParams} />
         <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
-          {t('create_user')}
+          {t('create_team')}
         </Button>
+       </div>
     </div>
     <Table data={data?.data?.items}
         columns={columns} pagination={{

@@ -1,9 +1,9 @@
 import { Button, Form, Input, Modal, Select } from "antd";
-import { useTranslation } from "react-i18next";
 import { useForm } from "antd/lib/form/Form";
+import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { ModalPropType } from "@types";
 import { useApiMutation, useApiQuery } from "@hooks";
+import { ModalPropType } from "@types";
 const { Option } = Select;
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
@@ -12,7 +12,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     url: "roles",
     method: "GET",
   });
-  console.log(data?.data?.items, 'modal-data')
+  const lang = localStorage.getItem('lang')
   const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "users", method: "POST" });
   const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "users", method: "PUT" });
   useEffect(() => {
@@ -73,7 +73,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
             <Select placeholder={t('select_role')} size="large">
               {data?.data?.items?.map((item: any) => (
                 <Option key={item.id} value={item.id}>
-                  {item.name_en}
+                  {lang == 'en' ? item.name_en : item.name_kr}
                 </Option>
               ))}
             </Select>

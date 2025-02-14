@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import App from "../App";
-import { Login, Role, User, LayoutMenu, Home, ProtectedAuth, ProtectedLayout} from "@pages";
+import { Login, Role, User, LayoutMenu, Home, ProtectedAuth, ProtectedLayout, Teams} from "@pages";
 const Index = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -16,6 +16,7 @@ const Index = () => {
           <Route index element={<Home />} />
           <Route path="role" element={<Role />} />
           <Route path="user" element={<User />} />
+          <Route path="team" element={<Teams />} />
         </Route>
       </Route>
     )

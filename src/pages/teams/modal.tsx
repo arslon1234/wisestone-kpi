@@ -1,20 +1,23 @@
 import { Button, Form, Input, Modal } from "antd";
-import { useTranslation } from "react-i18next";
+import TextArea from "antd/lib/input/TextArea";
 import { useForm } from "antd/lib/form/Form";
+import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { ModalPropType } from "@types";
 import { useApiMutation } from "@hooks";
+import { ModalPropType } from "@types";
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
   const [form] = useForm();
-  const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "roles", method: "POST" });
-  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "roles", method: "PUT" });
+  const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "teams", method: "POST" });
+  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "teams", method: "PUT" });
   useEffect(() => {
     if (open) {
       if (update) {
         form.setFieldsValue({
           name_en: update.name_en,
           name_kr: update.name_kr,
+          description_en: update.description_en,
+          description_kr: update.description_kr,
         });
       } else {
         form.resetFields();
@@ -47,7 +50,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     <>
       <Modal
         open={open}
-        title={update ? t("edit_role") : t("create_role")}
+        title={update ? t("update_team") : t("create_team")}
         onCancel={handleCancel}
         footer={false}
        
@@ -72,6 +75,20 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
             rules={[{ required: true, message: t('placeholer_kr') }]}
           >
             <Input size="large" placeholder={t('placeholer_kr')}/>
+          </Form.Item>
+          <Form.Item
+            label={t('desc_en')}
+            name="description_en"
+            rules={[{ required: true, message: t('placeholder_desc_en') }]}
+          >
+            <TextArea size="large" placeholder={t('placeholder_desc_en')}/>
+          </Form.Item>
+          <Form.Item
+            label={t('desc_kr')}
+            name="description_kr"
+            rules={[{ required: true, message: t('placeholder_desc_kr') }]}
+          >
+            <TextArea size="large" placeholder={t('placeholder_desc_kr')}/>
           </Form.Item>
           <Form.Item>
             <Button

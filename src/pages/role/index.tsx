@@ -6,7 +6,6 @@ import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete } from "@components";
 import Modal from './modal'
-import './style.css'
 
 const Index = () => {
   const {t} = useTranslation()

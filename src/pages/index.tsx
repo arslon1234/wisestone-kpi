@@ -6,4 +6,5 @@ const LayoutMenu = lazy(() => import('./layout-menu'));
 const Home = lazy(() => import('./home'));
 const Role = lazy(() => import('./role'));
 const User = lazy(() => import('./user'));
-export {Login,LayoutMenu, Home, ProtectedAuth, ProtectedLayout, Role, User}
+const Teams = lazy(() => import('./teams'));
+export {Login,LayoutMenu, Home, ProtectedAuth, ProtectedLayout, Role, User,Teams}
