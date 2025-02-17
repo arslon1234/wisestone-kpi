@@ -1,4 +1,5 @@
 import { Button, Space } from "antd";
+import { Checkbox } from 'antd';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
@@ -30,10 +31,25 @@ const Index = () => {
     url: "user-teams",
     method: "DELETE",
   });
+  const { mutate: handleCheck } = useApiMutation({
+    url: "teams",
+    method: "PUT",
+   
+  });
   const handleDelete = (id: any) => {
     deleteItem({ id });
     queryClient.invalidateQueries({ queryKey: ["users"] });
   };
+  const handleChecked =(user_id: string | number)=>{
+    handleCheck(
+        { id, data: { leader_id: user_id } },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+          },
+        }
+    );
+  }
   useEffect(() => {
     const pageFromParams = searchParams.get("page") || "1";
     const limitFromParams = searchParams.get("limit") || "5";
@@ -79,6 +95,7 @@ const Index = () => {
             id={record.id}
             deleteItem={(id: any) => handleDelete(id)}
           />
+          <Checkbox checked={record.is_team_leader} onChange={()=>handleChecked(record.id)}/>
         </Space>
       ),
     },
