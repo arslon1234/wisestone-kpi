@@ -3,9 +3,12 @@ import { ProtectedAuth } from './protect-route';
 import { ProtectedLayout } from './protect-route';
 const Login = lazy(() => import('./login'));
 const LayoutMenu = lazy(() => import('./layout-menu'));
-const Home = lazy(() => import('./home'));
+const Dashboard = lazy(() => import('./dashboard'));
 const Role = lazy(() => import('./role'));
 const User = lazy(() => import('./user'));
 const Teams = lazy(() => import('./teams'));
 const TeamMembers = lazy(() => import('./team-members'));
-export {Login,LayoutMenu, Home, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers}
+const Profile = lazy(() => import('./profile'));
+const KpiEstablish = lazy(() => import('./kpi-establish'));
+const Division = lazy(() => import('./division'));
+export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Profile, KpiEstablish, Division}

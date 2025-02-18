@@ -1,4 +1,4 @@
-import { Button, Space } from "antd";
+import { Button, Space, Tooltip } from "antd";
 import { Checkbox } from 'antd';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -91,11 +91,13 @@ const Index = () => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
+            <Tooltip title={t("select_leader")}>
+          <Checkbox checked={record.is_team_leader} disabled={record.is_team_leader} style={{width: "30px"}} onChange={()=>handleChecked(record.id)}/>
+            </Tooltip>
           <ConfirmDelete
             id={record.id}
             deleteItem={(id: any) => handleDelete(id)}
           />
-          <Checkbox checked={record.is_team_leader} onChange={()=>handleChecked(record.id)}/>
         </Space>
       ),
     },

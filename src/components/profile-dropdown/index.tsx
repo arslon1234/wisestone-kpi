@@ -4,16 +4,23 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd"
+import type { MenuProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { removeItem } from "@utils/storage-service";
+
 const ProfileDropdown = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const onSettingsClick = () => {
-    navigate('/layout/role')
+
+  const onProfileClick = () => {
+    navigate("/layout/profile"); 
   };
+
+  const onSettingsClick = () => {
+    navigate("/layout/role");
+  };
+
   const onLogout = () => {
     Modal.confirm({
       title: t("logout_title"),
@@ -21,7 +28,7 @@ const ProfileDropdown = () => {
       content: t("logout_desc"),
       onOk() {
         navigate("/");
-        removeItem('access_token')
+        removeItem("access_token");
       },
       onCancel() {
         console.log("Cancel clicked");
@@ -36,7 +43,14 @@ const ProfileDropdown = () => {
       cancelText: t("cancel"),
     });
   };
+
   const items: MenuProps["items"] = [
+    {
+      key: "profile",
+      label: t("profile"),
+      icon: <UserOutlined />,
+      onClick: onProfileClick,
+    },
     {
       key: "settings",
       label: t("settings"),
@@ -52,12 +66,15 @@ const ProfileDropdown = () => {
       icon: <LogoutOutlined />,
       onClick: onLogout,
     },
-  ]
+  ];
 
   return (
     <Dropdown menu={{ items }} trigger={["click"]}>
-    <Avatar style={{ backgroundColor: "#87d068", cursor: "pointer" }} icon={<UserOutlined />} />
-  </Dropdown>
+      <Avatar
+        style={{ backgroundColor: "#87d068", cursor: "pointer" }}
+        icon={<UserOutlined />}
+      />
+    </Dropdown>
   );
 };
 

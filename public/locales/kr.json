@@ -7,7 +7,7 @@
   "cancel": "취소",
   "confirm": "확인",
   "settings": "설정",
-  "home": "홈 페이지",
+  "dashboard": "대시보드",
   "role": "역할",
   "user": "사용자",
   "create_role": "역할 생성",
@@ -45,5 +45,13 @@
   "create_team_member": "팀 멤버 생성",
   "update_team_member": "팀 멤버 수정",
   "select_user": "사용자 선택",
-  "full_name": "전체 이름"
+  "full_name": "전체 이름",
+  "select_leader": "리더 선택",
+  "profile": "프로필",
+  "yearly_kpi": "연간 KPI",
+  "create_new_kpi": "새로운 KPI 만들기",
+  "name": "이름",
+  "description": "설명",
+  "year": "년도",
+  "select_year": "년도를 선택하세요"
 }

@@ -7,7 +7,7 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "settings": "Settings",
-  "home": "Home",
+  "dashboard": "Dashboard",
   "role": "Role",
   "user": "User",
   "create_role": "Create role",
@@ -23,7 +23,7 @@
   "delete": "Delete",
   "delete_task": "Delete the item",
   "delete_desc": "Are you sure to delete this item?",
-  "action": "Action",
+  "action": "Actions",
   "username": "Username",
   "password": "Password",
   "enter_username": "Enter your username",
@@ -45,5 +45,13 @@
   "create_team_member": "Create team member",
   "update_team_member": "Create team member",
   "select_user": "Select user",
-  "full_name": "Full name"
+  "full_name": "Full name",
+  "select_leader": "select leader",
+  "profile": "Profile",
+  "yearly_kpi": "Yearly KPIs",
+  "create_new_kpi": "Create New KPI",
+  "name": "Name",
+  "description": "Description",
+  "year": "Year",
+  "select_year": "Select year"
 }

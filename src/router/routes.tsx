@@ -1,9 +1,14 @@
-import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, SettingOutlined, BarChartOutlined } from "@ant-design/icons";
 export const routes = [
   {
-    title: "home",
+    title: "dashboard",
     path: "/layout",
     icon: <AppstoreOutlined />,
+  },
+  {
+    title: "yearly_kpi",
+    path: "/layout/yearly-kpi",
+    icon: <BarChartOutlined />,
   },
   {
     title: "settings",
