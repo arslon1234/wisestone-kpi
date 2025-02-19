@@ -53,5 +53,9 @@
   "name": "이름",
   "description": "설명",
   "year": "년도",
-  "select_year": "년도를 선택하세요"
+  "select_year": "년도를 선택하세요",
+  "divisions": "부서",
+  "add_divisions": "부서 추가",
+  "loading_divisions": "부서를 불러오는 중...",
+  "no_divisions_found": "부서를 찾을 수 없습니다"
 }

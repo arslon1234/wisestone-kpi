@@ -8,6 +8,7 @@ interface ApiOptions {
   url: string
   method?: ApiMethod
   headers?: Record<string, string>
+  enabled?: boolean
 }
 
 async function fetchApi<T>(

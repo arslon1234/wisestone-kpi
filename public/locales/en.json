@@ -53,5 +53,9 @@
   "name": "Name",
   "description": "Description",
   "year": "Year",
-  "select_year": "Select year"
+  "select_year": "Select year",
+  "divisions": "Divisions",
+  "add_divisions": "Add Divisions",
+  "loading_divisions": "Loading divisions...",
+  "no_divisions_found": "No divisions found"
 }
