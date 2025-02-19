@@ -58,4 +58,8 @@
     justify-content: end;
     gap: 5px;
   }
-  
+  .indicator-actions{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }

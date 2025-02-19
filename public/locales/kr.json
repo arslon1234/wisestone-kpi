@@ -57,5 +57,14 @@
   "divisions": "부서",
   "add_divisions": "부서 추가",
   "loading_divisions": "부서를 불러오는 중...",
-  "no_divisions_found": "부서를 찾을 수 없습니다"
+  "no_divisions_found": "부서를 찾을 수 없습니다",
+  "add_criteria": "기준 추가",
+  "loading_criteria": "기준을 불러오는 중...",
+  "no_criteria_found": "기준을 찾을 수 없습니다",
+   "criteria": "기준",
+   "total_ratio": "총 비율",
+   "add_factor": "요인 추가",
+   "ratio": "비율",
+   "add_indicator": "지표 추가",
+   "update_indicator": "지표 업데이트"
 }

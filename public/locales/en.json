@@ -57,5 +57,14 @@
   "divisions": "Divisions",
   "add_divisions": "Add Divisions",
   "loading_divisions": "Loading divisions...",
-  "no_divisions_found": "No divisions found"
+  "no_divisions_found": "No divisions found",
+  "add_criteria": "Add Criteria",
+  "loading_criteria": "Loading criteria...",
+  "no_criteria_found": "No criteria found",
+  "criteria": "Criteria",
+  "total_ratio": "Total ratio",
+  "add_factor": "Add factor",
+  "ratio": "Ratio",
+  "add_indicator": "Add Indicator",
+  "update_indicator": "Update Indicator"
 }

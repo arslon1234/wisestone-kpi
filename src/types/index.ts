@@ -4,4 +4,5 @@ export interface ModalPropType {
     open: boolean,
     update?: any,
     handleCancel: ()=> void,
+    
 }
