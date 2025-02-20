@@ -66,5 +66,16 @@
    "add_factor": "요인 추가",
    "ratio": "비율",
    "add_indicator": "지표 추가",
-   "update_indicator": "지표 업데이트"
+   "update_indicator": "지표 업데이트",
+   "delete_criteria": "기준 삭제",
+   "delete_factor": "요소 삭제",
+   "delete_indicator": "지표 삭제",
+   "delete_division": "부서 삭제",
+   "update_factor": "요소 업데이트",
+   "no_factor_indicator_found": "요소 지표를 찾을 수 없습니다",
+   "no_factors_found": "요소를 찾을 수 없습니다",
+   "update_division": "부서 업데이트",
+   "update_criteria": "기준 업데이트",
+   "factors": "요인",
+   "factor_indicator": "요인 지표"
 }

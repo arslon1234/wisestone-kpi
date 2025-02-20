@@ -63,3 +63,18 @@
     align-items: center;
     gap: 5px;
   }
+  .factor-indicator-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 5px 0px;
+  }
+  .indicator-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .indicator-action{
+    display: flex;
+    gap: 5px;
+  }

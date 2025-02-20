@@ -63,8 +63,19 @@
   "no_criteria_found": "No criteria found",
   "criteria": "Criteria",
   "total_ratio": "Total ratio",
-  "add_factor": "Add factor",
+  "add_factor": "Add Factor",
   "ratio": "Ratio",
   "add_indicator": "Add Indicator",
-  "update_indicator": "Update Indicator"
+  "update_indicator": "Update Indicator",
+  "delete_criteria": "Delete Criteria",
+  "delete_factor": "Delete Factor",
+  "delete_indicator": "Delete Indicator",
+  "delete_division": "Delete Division",
+  "update_factor": "Update Factor",
+  "no_factor_indicator_found": "No factor indicator found",
+  "no_factors_found": "No factors found",
+  "update_division": "Update Division",
+  "update_criteria": "Update Criteria",
+  "factors": "Factors",
+  "factor_indicator": "Factor Indicator"
 }

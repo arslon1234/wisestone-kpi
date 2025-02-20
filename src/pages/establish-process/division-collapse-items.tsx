@@ -87,7 +87,7 @@ const DivisionCollapseItems = ({
       children: (
         <div className="division-content">
           <div className="collapse-actions">
-            <Tooltip title={t("update")}>
+            <Tooltip title={t("update_division")}>
               <Button
                 type="default"
                 icon={<EditOutlined />}
@@ -97,6 +97,7 @@ const DivisionCollapseItems = ({
             <ConfirmDelete
               id={division.id}
               deleteItem={(id: any) => deleteDivision({ id })}
+              title="delete_division"
             />
             <Tooltip
               title={
@@ -140,8 +141,9 @@ const DivisionCollapseItems = ({
                   <ConfirmDelete
                     id={criterion.id}
                     deleteItem={(id: any) => deleteCriteria({ id })}
+                    title="delete_criteria"
                   />,
-                  <Tooltip title={t("update")}>
+                  <Tooltip title={t("update_criteria")}>
                     <Button
                       type="default"
                       onClick={() => handleUpdate(criterion)}
@@ -162,8 +164,8 @@ const DivisionCollapseItems = ({
                 title={lang == "en" ? criterion.name_en : criterion.name_kr}
                 className="criterion-card"
               >
-                <h3>Factors</h3>
-                <Factors id={criterion.id}/>
+                <h3>{t('factors')}</h3>
+                {criterion.id && <Factors id={criterion.id}/>}
               </Card>
             ))
           ) : (
