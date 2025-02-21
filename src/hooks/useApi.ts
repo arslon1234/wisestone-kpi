@@ -83,3 +83,21 @@ export function useApiMutation<T>(
     ...mutationOptions,
   });
 }
+
+// Universal single item hook
+export function useSingleItem<T>(
+  resourceUrl: string,
+  id: any,
+  options?: Omit<UseQueryOptions<T, Error>, "queryKey" | "queryFn">
+) {
+  return useApiQuery<T>(
+    { 
+      url: `${resourceUrl}/${id}`, 
+      method: "GET" 
+    },
+    {
+      ...options,
+      enabled: !!id, 
+    }
+  );
+}

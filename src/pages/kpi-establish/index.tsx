@@ -1,5 +1,5 @@
 import { Button, DatePicker, Space, Tooltip } from "antd";
-import { EditOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { EditOutlined, ArrowRightOutlined,MoreOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -106,6 +106,13 @@ const Index = () => {
               icon={<ArrowRightOutlined />}
             />
           </Tooltip>
+          <Tooltip title={t("more")}>
+            <Button
+              type="default"
+              onClick={() => navigate(`/layout/yearly-kpis/${record.id}`)}
+              icon={<MoreOutlined />}
+            />
+          </Tooltip>
         </Space>
       ),
     },
@@ -140,7 +147,7 @@ const Index = () => {
     } else {
       setParams((prev) => ({
         ...prev,
-        year: "", // `delete` ishlamaydi, shuning uchun "" yoki undefined beriladi
+        year: "", 
       }));
       setSearchParams((prev) => {
         prev.delete("year");
@@ -148,8 +155,6 @@ const Index = () => {
       });
     }
   };
-  
-
   return (
     <>
       {modalVisible && (

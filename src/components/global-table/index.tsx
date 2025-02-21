@@ -2,7 +2,7 @@ import { Table as AntdTable } from 'antd';
 import type { TablePaginationConfig } from 'antd';
 interface CustomTableProps {
   data: any[];
-  pagination: TablePaginationConfig;
+  pagination?: TablePaginationConfig;
   onChange: (pagination: TablePaginationConfig) => void;
   columns: any[];
   loading?: boolean
