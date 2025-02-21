@@ -12,4 +12,5 @@ const Profile = lazy(() => import('./profile'));
 const KpiEstablish = lazy(() => import('./kpi-establish'));
 const Division = lazy(() => import('./establish-process'));
 const TableEstablishment = lazy(() => import('./table-establishment'));
-export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Profile, KpiEstablish, Division, TableEstablishment}
+const EstablishProgress = lazy(() => import('./establish-progress'));
+export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Profile, KpiEstablish, Division, TableEstablishment, EstablishProgress}

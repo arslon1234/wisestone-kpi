@@ -22,7 +22,7 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t("division"),
+      title: t("divisions"),
       dataIndex: lang === "en" ? "name_en" : "name_kr",
     },
     {
@@ -33,19 +33,19 @@ const Index = () => {
         criterions?.map((criterion) => (
           <Card
             key={criterion.id}
-            title={criterion?.name_en}
+            title={lang == "en" ? criterion?.name_en : criterion?.name_kr}
             style={{ marginBottom: 8 }}
             extra={<p>{criterion.total_ratio}%</p>}
           >
-            <Collapse>
+            <Collapse defaultActiveKey={criterion.factors?.map((factor: any) => factor.id)}>
               {criterion.factors?.map((factor: any) => (
-                <Panel extra={<p>{factor.ratio}%</p>} header={factor.name_en} key={factor.id} style={{paddingLeft: "10px"}}>
+                <Panel extra={<p>{factor.ratio}%</p>} header={lang == 'en' ? factor.name_en : factor.name_kr} key={factor.id} style={{paddingLeft: "10px"}}>
                   <ol>
                     {factor.factor_indicators
                       ?.sort((a: any, b: any) => a.order - b.order) 
                       .map((indicator: any, index: number) => (
                         <li key={indicator.id} style={{display: "flex", justifyContent: "space-between"}}>
-                            <span>{index + 1}. {indicator.name_en}</span>
+                            <span>{index + 1}. {lang == 'en' ? indicator.name_en : indicator.name_kr}</span>
                             <span>{indicator.progress_range}%</span>
                         </li>
                       ))}
