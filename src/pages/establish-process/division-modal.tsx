@@ -58,7 +58,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     <>
       <Modal
         open={open}
-        title={update ? t("update_team") : t("create_team")}
+        title={update ? t("update_division") : t("add_divisions")}
         onCancel={handleCancel}
         footer={false}
       >
