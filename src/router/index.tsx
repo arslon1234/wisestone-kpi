@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import App from "../App";
-import { Login, Role, User, LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Teams, TeamMembers, Profile, KpiEstablish, Division, TableEstablishment,EstablishProgress} from "@pages";
+import { Login, Role, User, LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Teams, TeamMembers, Profile, KpiEstablish, Division, TableEstablishment,EstablishProgress, TeamProgress} from "@pages";
 const Index = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +21,7 @@ const Index = () => {
           <Route path="role" element={<Role />} />
           <Route path="user" element={<User />} />
           <Route path="team" element={<Teams />} />
+          <Route path="team-progress/:id" element={<TeamProgress />} />
           <Route path="profile" element={<Profile />} />
           <Route path="team/:id" element={<TeamMembers />} />
         </Route>

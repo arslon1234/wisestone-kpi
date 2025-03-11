@@ -1,5 +1,5 @@
 import { Button, Space, Tooltip } from "antd"
-import { EditOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { EditOutlined, ArrowRightOutlined,MoreOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -91,6 +91,13 @@ const Index = () => {
               type="default"
               onClick={()=>navigate(`/layout/team/${record.id}`)}
               icon={<ArrowRightOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title={t('single_page')}>
+            <Button
+              type="default"
+              onClick={()=>navigate(`/layout/team-progress/${record.id}`)}
+              icon={<MoreOutlined />}
             />
           </Tooltip>
         </Space>

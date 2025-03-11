@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useApiMutation } from "@hooks";
 import { setItem } from "@utils/storage-service";
 import { useNavigate } from "react-router-dom"
-import logo from "../../assets/wisestone.png";
+// import logo from "../../assets/wisestone.png";
 import "./style.css";
 interface LoginFormValues {
   username: string;
@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
       <div
       className="wrapper-item"
       >
-        <img src={logo} alt="wisestone-logo" />
+        {/* <img src={logo} alt="wisestone-logo" /> */}
         <Card style={{ width: "100%" }}>
           <h2
             style={{
@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
               fontSize: "30px",
             }}
           >
-            Login
+            Sign In
           </h2>
           <Form
             name="login"
@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
               <Input
                 prefix={<UserOutlined />}
                 style={{ fontSize: "16px" }}
-                placeholder="Username"
+                placeholder="User ID"
               />
             </Form.Item>
 

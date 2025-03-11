@@ -84,20 +84,30 @@ export function useApiMutation<T>(
   });
 }
 
-// Universal single item hook
+interface QueryParams {
+  id?: any;
+  type?: string; // type endi to'g'ridan-to'g'ri string
+}
+
 export function useSingleItem<T>(
   resourceUrl: string,
-  id: any,
+  params: QueryParams, // id yoki type ni o'z ichiga oladi
   options?: Omit<UseQueryOptions<T, Error>, "queryKey" | "queryFn">
 ) {
+  const queryParams = {
+    ...(params.id !== undefined && { id: params.id }),
+    ...(params.type !== undefined && { type: params.type }),
+  };
+
   return useApiQuery<T>(
-    { 
-      url: `${resourceUrl}/${id}`, 
-      method: "GET" 
+    {
+      url: resourceUrl,
+      method: "GET",
+      params: queryParams,
     },
     {
       ...options,
-      enabled: !!id, 
+      enabled: !!(params.id || params.type), // id yoki type mavjud bo'lsa ishlaydi
     }
   );
 }
