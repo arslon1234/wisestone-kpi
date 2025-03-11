@@ -1,5 +1,5 @@
 import { Button, Space, Tooltip } from "antd"
-import { EditOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -9,9 +9,9 @@ import { Table, ConfirmDelete, Search } from "@components";
 const Index = ({type}: {type: string}) => {
   const {t} = useTranslation()
   const navigate = useNavigate()
-  const [modalVisible, setModalVisible] = useState(false)
+  // const [, setModalVisible] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams();
-  const [update,setUpdate] = useState(null)
+  // const [update,setUpdate] = useState(null)
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
@@ -38,10 +38,10 @@ const Index = ({type}: {type: string}) => {
       search: searchFromParams,
     }));
   }, [searchParams]);
-  const editData =(item: any)=>{
-    setUpdate(item)
-    setModalVisible(true)
-  }
+  // const editData =(item: any)=>{
+  //   setUpdate(item)
+  //   setModalVisible(true)
+  // }
   const columns = [
     {
       title: "#",
@@ -79,11 +79,11 @@ const Index = ({type}: {type: string}) => {
       render: (_: any, record: any) => (
         <Space size="middle">
           <Tooltip title={t('update')}>
-            <Button
+            {/* <Button
               type="default"
               onClick={() => editData(record)}
               icon={<EditOutlined />}
-            />
+            /> */}
           </Tooltip>
           <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
           <Tooltip title={t('single_page')}>
@@ -109,19 +109,19 @@ const Index = ({type}: {type: string}) => {
       limit: String(pageSize),
     });
   }
-  const handleCancel =()=>{
-    setModalVisible(false)
-    setUpdate(null)
-  }
+  // const handleCancel =()=>{
+  //   setModalVisible(false)
+  //   setUpdate(null)
+  // }
   return (
     <>
     <div className="wrapper">
         <h1>{t('team')}</h1>
        <div className="search_btn">
        <Search params={params} setParams={setParams} />
-        <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
+        {/* <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
           {t('create_team')}
-        </Button>
+        </Button> */}
        </div>
     </div>
     <Table data={data?.data?.items}

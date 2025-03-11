@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { useSingleItem } from "@hooks";
 import { Table } from "@components";
 import { Card, Collapse, Checkbox } from "antd";
@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Index = () => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  // const { id } = useParams();
   const lang = localStorage.getItem("lang");
   const { data, isLoading } = useSingleItem<any>("kpi-parents/single", { type: "team" });
 
