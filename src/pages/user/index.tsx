@@ -16,12 +16,12 @@ const Index = () => {
     page: 1,
     limit: 5,
   });
-  const { data, isLoading } = useApiQuery<{ message: string; data: any }>({
-    url: "users",
+  const { data, isLoading } = useApiQuery<any>({
+    url: "user/users",
     method: "GET",
     params,
   });
-  const { mutate: deleteItem } = useApiMutation({ url: "users", method: "DELETE"});
+  const { mutate: deleteItem } = useApiMutation({ url: "user/users", method: "DELETE"});
   const handleDelete =(id: any)=>{
     deleteItem({id})
   }
@@ -48,20 +48,12 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('full_name_en'),
-      dataIndex: "full_name_en",
-    },
-    {
-      title: t('full_name_kr'),
-      dataIndex: "full_name_kr",
+      title: t('full_name'),
+      dataIndex: "full_name",
     },
     {
       title: t("username"),
       dataIndex: "username",
-    },
-    {
-      title: t("email"),
-      dataIndex: "email",
     },
     {
       title: t("action"),
@@ -105,7 +97,7 @@ const Index = () => {
           {t('create_user')}
         </Button>
     </div>
-    <Table data={data?.data?.items}
+    <Table data={data?.result}
         columns={columns} pagination={{
           current: params.page,
           pageSize: params.limit,

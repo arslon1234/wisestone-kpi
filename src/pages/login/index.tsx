@@ -17,8 +17,9 @@ const LoginPage: React.FC = () => {
   const onFinish = async (values: LoginFormValues) => {
     try {
       const result = await createItem({ data: values });
-      if(result?.status === 200){
-        setItem('access_token', result?.data?.token)
+      console.log(result, 'res')
+      if(result?.access_token){
+        setItem('access_token', result?.access_token)
         navigate('/layout')
       }
       console.log(result)
@@ -70,7 +71,7 @@ const LoginPage: React.FC = () => {
               rules={[
                 { required: true, message: "Please enter the password!" },
                 {
-                  min: 6,
+                  min: 4,
                   message: "The password must be at least 6 characters long!",
                 },
               ]}

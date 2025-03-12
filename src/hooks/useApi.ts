@@ -28,7 +28,7 @@ async function fetchApi<T>(
   const options: RequestInit = {
     method,
     headers: requestHeaders,
-    ...(body ? { body: JSON.stringify(body) } : {}), // ✅ Faqat POST yoki PUT bo‘lsa body qo‘shiladi
+    ...(body ? { body: JSON.stringify(body) } : {}),
   }
 
   try {
@@ -39,7 +39,7 @@ async function fetchApi<T>(
       throw new Error(`API Error (${response.status}): ${responseBody}`)
     }
 
-    return responseBody ? (JSON.parse(responseBody) as T) : ({} as T) // ✅ Bo‘sh JSON bo‘lsa
+    return responseBody ? (JSON.parse(responseBody) as T) : ({} as T) 
   } catch (error) {
     console.error("fetchApi Error:", error)
     throw error
@@ -86,12 +86,12 @@ export function useApiMutation<T>(
 
 interface QueryParams {
   id?: any;
-  type?: string; // type endi to'g'ridan-to'g'ri string
+  type?: string; 
 }
 
 export function useSingleItem<T>(
   resourceUrl: string,
-  params: QueryParams, // id yoki type ni o'z ichiga oladi
+  params: QueryParams, 
   options?: Omit<UseQueryOptions<T, Error>, "queryKey" | "queryFn">
 ) {
   const queryParams = {
@@ -107,7 +107,7 @@ export function useSingleItem<T>(
     },
     {
       ...options,
-      enabled: !!(params.id || params.type), // id yoki type mavjud bo'lsa ishlaydi
+      enabled: !!(params.id || params.type), 
     }
   );
 }

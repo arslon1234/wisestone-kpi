@@ -1,47 +1,46 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, Modal, Checkbox } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { useApiMutation, useApiQuery } from "@hooks";
+import { useApiMutation } from "@hooks";
 import { ModalPropType } from "@types";
-const { Option } = Select;
+
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const [form] = useForm();
-  const { data } = useApiQuery<{ message: string; data: any }>({
-    url: "roles",
-    method: "GET",
-  });
-  const lang = localStorage.getItem('lang')
-  const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "users", method: "POST" });
-  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "users", method: "PUT" });
+  const { mutateAsync: createItem, isPending: isCreating } = useApiMutation<any>({ url: "user/users", method: "POST" });
+  const { mutateAsync: updateItem, isPending: isUpdating } = useApiMutation<any>({ url: "users", method: "PUT" });
+
   useEffect(() => {
     if (open) {
       if (update) {
         form.setFieldsValue({
-          name_en: update.name_en,
-          name_kr: update.name_kr,
+          full_name: update.full_name,
+          username: update.username,
+          is_leader: update.is_leader || false,
         });
       } else {
         form.resetFields();
       }
     }
   }, [open, update, form]);
+
   const handleSubmit = async (values: any) => {
-    if(update){
+    if (update) {
       try {
-        const res = await updateItem({id: update.id, data: values });
-        if(res.status == 200){
-         handleCancel()
+        const res = await updateItem({ id: update.id, data: values });
+        if (res.status === 200) {
+          handleCancel();
         }
       } catch (error) {
         console.error(error, "ERROR");
       }
-    }else{
+    } else {
       try {
         const res = await createItem({ data: values });
-        if(res.status == 201){
-         handleCancel()
+        console.log(res, 'res')
+        if (res.status === 200) {
+          handleCancel();
         }
       } catch (error) {
         console.error(error, "ERROR");
@@ -56,52 +55,48 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
         title={update ? t("edit_user") : t("create_user")}
         onCancel={handleCancel}
         footer={false}
-       
       >
         <Form
           form={form}
-          name="roleForm"
+          name="userForm"
           style={{ width: "100%", marginTop: "20px" }}
           onFinish={handleSubmit}
           layout="vertical"
         >
-            <Form.Item
-            label={t('select_role')}
-            name="role_id"
-            rules={[{ required: false, message: t('select_role') }]}
+          <Form.Item
+            label={t("full_name")}
+            name="full_name"
+            rules={[{ required: true, message: "Enter full name" }]}
           >
-            <Select placeholder={t('select_role')} size="large">
-              {data?.data?.items?.map((item: any) => (
-                <Option key={item.id} value={item.id}>
-                  {lang == 'en' ? item.name_en : item.name_kr}
-                </Option>
-              ))}
-            </Select>
+            <Input size="large" placeholder="Enter full name" />
           </Form.Item>
           <Form.Item
-            label={t('username')}
+            label={t("username")}
             name="username"
-            rules={[{ required: true, message: t('enter_username') }]}
+            rules={[{ required: true, message: t("enter_username") }]}
           >
-            <Input size="large" placeholder={t('enter_username')}/>
+            <Input size="large" placeholder={t("enter_username")} />
           </Form.Item>
           <Form.Item
-            label={t('password')}
+            label={t("password")}
             name="password"
-            rules={[{ required: true, message: t('enter_password') }]}
+            rules={[{ required: true, message: t("enter_password") }]}
           >
-            <Input size="large" placeholder={t('enter_password')}/>
+            <Input.Password size="large" placeholder={t("enter_password")} />
+          </Form.Item>
+          {/* Checkbox qo‘shildi */}
+          <Form.Item name="superuser" initialValue={false} valuePropName="checked">
+            <Checkbox>Super user</Checkbox>
           </Form.Item>
           <Form.Item>
             <Button
               size="large"
               style={{ width: "100%" }}
               type="primary"
-              className="btn"
               htmlType="submit"
               loading={isCreating || isUpdating}
             >
-              {update ? t('update') : t('create')}
+              {update ? t("update") : t("create")}
             </Button>
           </Form.Item>
         </Form>
