@@ -79,5 +79,9 @@
   "factors": "Factors",
   "factor_indicator": "Factor Indicator",
   "more": "More",
-  "establish_progress": "Establish progress"
+  "establish_progress": "Establish progress",
+  "upload": "Upload",
+  "upload_scv_file": "Upload CSV File",
+  "drag_drop": "Click or drag a CSV file to upload",
+  "warning_file_upload": "Only .csv files are allowed"
 }

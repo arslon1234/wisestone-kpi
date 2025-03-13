@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
-import { Table, ConfirmDelete } from "@components";
+import { Table, ConfirmDelete,} from "@components";
 import Modal from './modal'
-
+import Upload from './upload'
 const Index = () => {
   const {t} = useTranslation()
+  const [upload, setUpload] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams();
   const [update,setUpdate] = useState(null)
@@ -56,6 +57,11 @@ const Index = () => {
       dataIndex: "username",
     },
     {
+      title: "Super user",
+      dataIndex: "superuser",
+      render: (item: any)=> item == true ? "yes" : "no"
+    },
+    {
       title: t("action"),
       key: "action",
       render: (_: any, record: any) => (
@@ -88,14 +94,23 @@ const Index = () => {
     setModalVisible(false)
     setUpdate(null)
   }
+  const handleCancelUpload =()=>{
+    setUpload(false)
+  }
   return (
     <>
     {modalVisible && <Modal open={modalVisible} update={update} handleCancel={handleCancel}/>}
+    {upload && <Upload isOpen={upload} handleCancel={handleCancelUpload}/>}
     <div className="wrapper">
         <h1>{t('user')}</h1>
+       <div className="wrapper-btn">
+       <Button type="default" className="btn" onClick={()=>setUpload(true)}>
+          Import exel
+        </Button>
         <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
           {t('create_user')}
         </Button>
+       </div>
     </div>
     <Table data={data?.result}
         columns={columns} pagination={{

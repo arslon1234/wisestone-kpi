@@ -13,6 +13,11 @@
   align-items: center;
   margin-bottom: 15px;
 }
+.wrapper-btn{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .search_btn{
   display: flex;
   gap: 15px;

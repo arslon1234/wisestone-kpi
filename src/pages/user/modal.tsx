@@ -71,7 +71,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
             <Input size="large" placeholder="Enter full name" />
           </Form.Item>
           <Form.Item
-            label={t("username")}
+            label="User ID"
             name="username"
             rules={[{ required: true, message: t("enter_username") }]}
           >

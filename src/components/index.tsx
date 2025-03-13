@@ -5,4 +5,5 @@ import ConfirmDelete from './confirm-delete'
 import Search from './search'
 import TeamKPI from './team-kpi'
 import EmployeeKPI from './employee-kpi'
-export {ProfileDropdown, Table, Loading, ConfirmDelete, Search, TeamKPI, EmployeeKPI}
+import ExcelUploader from "./exel-file-upload";
+export {ProfileDropdown, Table, Loading, ConfirmDelete, Search, TeamKPI, EmployeeKPI, ExcelUploader}
