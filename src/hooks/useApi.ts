@@ -3,6 +3,10 @@ import { Notification } from "@utils/notification"
 import { getItem } from "@utils/storage-service"
 
 type ApiMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
+interface QueryParams {
+  id?: any;
+  type?: string; 
+}
 
 interface ApiOptions {
   url: string
@@ -16,35 +20,36 @@ async function fetchApi<T>(
   body?: any
 ): Promise<T> {
   const requestHeaders: Record<string, string> = {
-    "Content-Type": "application/json",
+    ...(body instanceof FormData ? {} : { "Content-Type": "application/json" }), // FormData bo‘lsa Content-Type bermaymiz
     ...headers,
-  }
+  };
 
-  const token = getItem("access_token")
+  const token = getItem("access_token");
   if (token) {
-    requestHeaders["Authorization"] = `Bearer ${token}`
+    requestHeaders["Authorization"] = `Bearer ${token}`;
   }
 
   const options: RequestInit = {
     method,
     headers: requestHeaders,
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  }
+    ...(body ? { body: body instanceof FormData ? body : JSON.stringify(body) } : {}), 
+  };
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${url}`, options)
-    const responseBody = await response.text()
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${url}`, options);
+    const responseBody = await response.text();
 
     if (!response.ok) {
-      throw new Error(`API Error (${response.status}): ${responseBody}`)
+      throw new Error(`API Error (${response.status}): ${responseBody}`);
     }
 
-    return responseBody ? (JSON.parse(responseBody) as T) : ({} as T) 
+    return responseBody ? (JSON.parse(responseBody) as T) : ({} as T);
   } catch (error) {
-    console.error("fetchApi Error:", error)
-    throw error
+    console.error("fetchApi Error:", error);
+    throw error;
   }
 }
+
 
 export function useApiQuery<T>(
   options: ApiOptions & { params?: any }, 
@@ -66,16 +71,23 @@ export function useApiMutation<T>(
   options: ApiOptions,
   mutationOptions?: Omit<UseMutationOptions<T, Error, any>, "mutationFn">,
 ) {
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
 
-  return useMutation<T, Error, { data?: any; id?: string | number }>({
-    mutationFn: async ({ data, id }) => {
-      const url = id ? `${options.url}/${id}` : options.url; 
-      return fetchApi<T>({ ...options, url }, data);
+  return useMutation<T, Error, { data?: any; id?: string | number; isFile?: boolean }>({
+    mutationFn: async ({ data, id, isFile }) => {
+      const url = id ? `${options.url}/${id}` : options.url;
+
+      // Fayl yuklash uchun `FormData`
+      const body = isFile && data instanceof File ? new FormData() : data;
+      if (body instanceof FormData) {
+        body.append("file", data);
+      }
+
+      return fetchApi<T>({ ...options, url }, body);
     },
     onSuccess: (data) => {
-      Notification("success", `Success: ${(data as any)?.message || 'Operation successful'}!`);
-      queryClient.invalidateQueries({ queryKey: [options.url] }); 
+      Notification("success", `Success: ${(data as any)?.message || "Operation successful"}!`);
+      queryClient.invalidateQueries({ queryKey: [options.url] });
     },
     onError: (error) => {
       Notification("error", `Error: ${error.message}`);
@@ -84,10 +96,6 @@ export function useApiMutation<T>(
   });
 }
 
-interface QueryParams {
-  id?: any;
-  type?: string; 
-}
 
 export function useSingleItem<T>(
   resourceUrl: string,

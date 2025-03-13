@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Modal, Upload, Button, message } from "antd";
+import { Modal, Upload, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
+import { useApiMutation } from "@hooks";
 
 const { Dragger } = Upload;
 
 const CsvUploadModal = ({ isOpen, handleCancel }: any) => {
   const [fileList, setFileList] = useState<any[]>([]);
-
+  const { mutate:uploadFile } = useApiMutation({ url: "users/upload", method: "POST"});
   const { t } = useTranslation()
   const beforeUpload = (file: File) => {
     const isCsv = file.type === "text/csv";
@@ -27,18 +27,23 @@ const CsvUploadModal = ({ isOpen, handleCancel }: any) => {
       message.warning("Please select a file first!");
       return;
     }
-
-    const formData = new FormData();
-    formData.append("file", fileList[0]);
-
     try {
-      const response = await axios.post("/api/users/upload-csv", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+        uploadFile(
+            { data: fileList[0], isFile: true }, // `isFile: true` deb belgilash muhim
+            {
+              onSuccess: () => {
+                message.success("File uploaded successfully!");
+                setFileList([]);
+                handleCancel(); // Close modal
+              },
+              onError: (error) => {
+                console.error("Upload failed:", error);
+              },
+            }
+          );
 
-      message.success("File uploaded successfully!");
-      setFileList([]);
-      handleCancel(); // Close modal
+      
+      
     } catch (error) {
       message.error("File upload failed!");
       console.error("Upload failed:", error);

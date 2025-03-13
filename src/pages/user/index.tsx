@@ -5,8 +5,10 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete,} from "@components";
+import { exportToExcel } from "@utils/exel-export";
 import Modal from './modal'
 import Upload from './upload'
+
 const Index = () => {
   const {t} = useTranslation()
   const [upload, setUpload] = useState(false)
@@ -18,11 +20,11 @@ const Index = () => {
     limit: 5,
   });
   const { data, isLoading } = useApiQuery<any>({
-    url: "user/users",
+    url: "users",
     method: "GET",
     params,
   });
-  const { mutate: deleteItem } = useApiMutation({ url: "user/users", method: "DELETE"});
+  const { mutate: deleteItem } = useApiMutation({ url: "users", method: "DELETE"});
   const handleDelete =(id: any)=>{
     deleteItem({id})
   }
@@ -97,6 +99,12 @@ const Index = () => {
   const handleCancelUpload =()=>{
     setUpload(false)
   }
+  const handleDownload =()=>{
+    if (!data.result || data.result === 0) {
+      return console.warn("No data to export!");
+    }
+    exportToExcel(data.result, "Users_List"); // Excelga o‘girish
+  }
   return (
     <>
     {modalVisible && <Modal open={modalVisible} update={update} handleCancel={handleCancel}/>}
@@ -104,8 +112,11 @@ const Index = () => {
     <div className="wrapper">
         <h1>{t('user')}</h1>
        <div className="wrapper-btn">
+       <Button type="default" onClick={handleDownload} className="btn" disabled={isLoading}>
+          Download
+        </Button>
        <Button type="default" className="btn" onClick={()=>setUpload(true)}>
-          Import exel
+          {t('upload')}
         </Button>
         <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
           {t('create_user')}
