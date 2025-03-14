@@ -16,7 +16,7 @@ const Index = () => {
     page: 1,
     limit: 5,
   });
-  const { data, isLoading } = useApiQuery<{ message: string; data: any }>({
+  const { data, isLoading } = useApiQuery<any>({
     url: "roles",
     method: "GET",
     params,
@@ -48,12 +48,12 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('name_en'),
-      dataIndex: "name_en",
+      title: t('name'),
+      dataIndex: "name",
     },
     {
-      title: t("name_kr"),
-      dataIndex: "name_kr",
+      title: t('order'),
+      dataIndex: "order_priority",
     },
     {
       title: t("action"),
@@ -97,7 +97,7 @@ const Index = () => {
           {t('create_role')}
         </Button>
     </div>
-    <Table data={data?.data?.items}
+    <Table data={data?.result}
         columns={columns} pagination={{
           current: params.page,
           pageSize: params.limit,

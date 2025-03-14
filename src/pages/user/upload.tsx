@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, Upload, message } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
 import { InboxOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useApiMutation } from "@hooks";
@@ -10,6 +11,7 @@ const CsvUploadModal = ({ isOpen, handleCancel }: any) => {
   const [fileList, setFileList] = useState<any[]>([]);
   const { mutate:uploadFile } = useApiMutation({ url: "users/upload", method: "POST"});
   const { t } = useTranslation()
+  const queryClient = useQueryClient();
   const beforeUpload = (file: File) => {
     const isCsv = file.type === "text/csv";
 
@@ -32,7 +34,7 @@ const CsvUploadModal = ({ isOpen, handleCancel }: any) => {
             { data: fileList[0], isFile: true }, // `isFile: true` deb belgilash muhim
             {
               onSuccess: () => {
-                message.success("File uploaded successfully!");
+                queryClient.invalidateQueries({ queryKey: ["users"] });
                 setFileList([]);
                 handleCancel(); // Close modal
               },

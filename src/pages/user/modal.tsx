@@ -8,7 +8,7 @@ import { ModalPropType } from "@types";
 const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const { t } = useTranslation();
   const [form] = useForm();
-  const { mutateAsync: createItem, isPending: isCreating } = useApiMutation<any>({ url: "user/users", method: "POST" });
+  const { mutateAsync: createItem, isPending: isCreating } = useApiMutation<any>({ url: "users", method: "POST" });
   const { mutateAsync: updateItem, isPending: isUpdating } = useApiMutation<any>({ url: "users", method: "PUT" });
 
   useEffect(() => {
@@ -84,7 +84,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
           >
             <Input.Password size="large" placeholder={t("enter_password")} />
           </Form.Item>
-          {/* Checkbox qo‘shildi */}
           <Form.Item name="superuser" initialValue={false} valuePropName="checked">
             <Checkbox>Super user</Checkbox>
           </Form.Item>

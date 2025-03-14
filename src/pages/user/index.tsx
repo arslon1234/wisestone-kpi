@@ -11,6 +11,7 @@ import Upload from './upload'
 
 const Index = () => {
   const {t} = useTranslation()
+  const user_id = localStorage.getItem('user_id')
   const [upload, setUpload] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,6 +25,7 @@ const Index = () => {
     method: "GET",
     params,
   });
+  const users = data?.result.filter((item:any) => item.username !== user_id)
   const { mutate: deleteItem } = useApiMutation({ url: "users", method: "DELETE"});
   const handleDelete =(id: any)=>{
     deleteItem({id})
@@ -51,12 +53,12 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('full_name'),
-      dataIndex: "full_name",
+      title: t("user_id"),
+      dataIndex: "username",
     },
     {
-      title: t("username"),
-      dataIndex: "username",
+      title: t('full_name'),
+      dataIndex: "full_name",
     },
     {
       title: "Super user",
@@ -113,7 +115,7 @@ const Index = () => {
         <h1>{t('user')}</h1>
        <div className="wrapper-btn">
        <Button type="default" onClick={handleDownload} className="btn" disabled={isLoading}>
-          Download
+       {t('download')}
         </Button>
        <Button type="default" className="btn" onClick={()=>setUpload(true)}>
           {t('upload')}
@@ -123,7 +125,7 @@ const Index = () => {
         </Button>
        </div>
     </div>
-    <Table data={data?.result}
+    <Table data={users}
         columns={columns} pagination={{
           current: params.page,
           pageSize: params.limit,

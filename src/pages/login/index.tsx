@@ -17,9 +17,9 @@ const LoginPage: React.FC = () => {
   const onFinish = async (values: LoginFormValues) => {
     try {
       const result = await createItem({ data: values });
-      console.log(result, 'res')
       if(result?.access_token){
         setItem('access_token', result?.access_token)
+        setItem('user_id', values.username)
         navigate('/layout')
       }
       console.log(result)

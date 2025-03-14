@@ -83,5 +83,10 @@
    "upload": "업로드",
    "upload_scv_file": "CSV 파일 업로드",
    "drag_drop": "CSV 파일을 클릭하거나 드래그하여 업로드하세요",
-   "warning_file_upload": "CSV 파일만 업로드할 수 있습니다"
+   "warning_file_upload": "CSV 파일만 업로드할 수 있습니다",
+   "user_id": "사용자 ID",
+   "download": "다운로드",
+    "order": "주문",
+    "enter_order": "주문 입력"
+
 }

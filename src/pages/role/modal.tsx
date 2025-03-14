@@ -8,13 +8,13 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
   const [form] = useForm();
   const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "roles", method: "POST" });
-  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "roles", method: "PUT" });
+  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "roles", method: "PATCH" });
   useEffect(() => {
     if (open) {
       if (update) {
         form.setFieldsValue({
-          name_en: update.name_en,
-          name_kr: update.name_kr,
+          name: update.name,
+          order_priority: update.order_priority
         });
       } else {
         form.resetFields();
@@ -23,8 +23,9 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   }, [open, update, form]);
   const handleSubmit = async (values: any) => {
     if(update){
+      const payload = {...values, order_priority: Number(values.order_priority)}
       try {
-        const res = await updateItem({id: update.id, data: values });
+        const res = await updateItem({id: update.id, data: payload });
         if(res.status == 200){
          handleCancel()
         }
@@ -34,7 +35,8 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     }else{
       try {
         const res = await createItem({ data: values });
-        if(res.status == 201){
+        console.log(res)
+        if(res.status == 200){
          handleCancel()
         }
       } catch (error) {
@@ -60,18 +62,18 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
           layout="vertical"
         >
           <Form.Item
-            label={t('name_en')}
-            name="name_en"
+            label={t('name')}
+            name="name"
             rules={[{ required: true, message: t('placeholer_en') }]}
           >
             <Input size="large" placeholder={t('placeholer_en')}/>
           </Form.Item>
           <Form.Item
-            label={t('name_kr')}
-            name="name_kr"
-            rules={[{ required: true, message: t('placeholer_kr') }]}
+            label={t('order')}
+            name="order_priority"
+            rules={[{ required: true, message: t('enter_order') }]}
           >
-            <Input size="large" placeholder={t('placeholer_kr')}/>
+            <Input size="large" type="number" placeholder={t('enter_order')}/>
           </Form.Item>
           <Form.Item>
             <Button

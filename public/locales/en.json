@@ -8,8 +8,8 @@
   "confirm": "Confirm",
   "settings": "Settings",
   "dashboard": "Dashboard",
-  "role": "Role",
-  "user": "User",
+  "role": "Roles",
+  "user": "Users",
   "create_role": "Create role",
   "create_user": "Create user",
   "edit_role": "Edit role",
@@ -83,5 +83,9 @@
   "upload": "Upload",
   "upload_scv_file": "Upload CSV File",
   "drag_drop": "Click or drag a CSV file to upload",
-  "warning_file_upload": "Only .csv files are allowed"
+  "warning_file_upload": "Only .csv files are allowed",
+  "user_id": "User ID",
+  "download": "Download",
+  "order": "Order",
+  "enter_order": "Enter order"
 }
