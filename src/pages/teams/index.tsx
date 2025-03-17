@@ -1,15 +1,15 @@
 import { Button, Space, Tooltip } from "antd"
-import { EditOutlined, ArrowRightOutlined,MoreOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams} from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete, Search } from "@components";
 import Modal from './modal'
 
 const Index = () => {
   const {t} = useTranslation()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [modalVisible, setModalVisible] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams();
   const [update,setUpdate] = useState(null)
@@ -18,7 +18,7 @@ const Index = () => {
     limit: 5,
     multi_search: ""
   });
-  const { data, isLoading } = useApiQuery<{ message: string; data: any }>({
+  const { data, isLoading } = useApiQuery<any>({
     url: "teams",
     method: "GET",
     params,
@@ -50,16 +50,12 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('name_en'),
-      dataIndex: "name_en",
+      title: t('name'),
+      dataIndex: "name",
     },
     {
-      title: t('name_kr'),
-      dataIndex: "name_kr",
-    },
-    {
-      title: t('desc_en'),
-      dataIndex: "description_en",
+      title: t('desc'),
+      dataIndex: "description",
       render: (text: string) => (
         <Tooltip title={text}>
           <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", maxWidth: 200 }}>
@@ -67,11 +63,6 @@ const Index = () => {
           </span>
         </Tooltip>
       ),
-    },
-    {
-      title: t('desc_kr'),
-      dataIndex: "description_kr",
-      ellipsis: true,
     },
     {
       title: t("action"),
@@ -86,20 +77,20 @@ const Index = () => {
             />
           </Tooltip>
           <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
-          <Tooltip title={t('single_page')}>
+          {/* <Tooltip title={t('single_page')}>
             <Button
               type="default"
               onClick={()=>navigate(`/layout/team/${record.id}`)}
               icon={<ArrowRightOutlined />}
             />
-          </Tooltip>
-          <Tooltip title={t('single_page')}>
+          </Tooltip> */}
+          {/* <Tooltip title={t('single_page')}>
             <Button
               type="default"
               onClick={()=>navigate(`/layout/team-progress/${record.id}`)}
               icon={<MoreOutlined />}
             />
-          </Tooltip>
+          </Tooltip> */}
         </Space>
       ),
     },
@@ -132,7 +123,7 @@ const Index = () => {
         </Button>
        </div>
     </div>
-    <Table data={data?.data?.items}
+    <Table data={data?.result}
         columns={columns} pagination={{
           current: params.page,
           pageSize: params.limit,

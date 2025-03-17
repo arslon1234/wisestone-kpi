@@ -87,5 +87,6 @@
   "user_id": "User ID",
   "download": "Download",
   "order": "Order",
-  "enter_order": "Enter order"
+  "enter_order": "Enter order",
+  "desc": "Description"
 }

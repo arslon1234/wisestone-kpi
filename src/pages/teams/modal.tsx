@@ -9,15 +9,13 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const {t} = useTranslation()
   const [form] = useForm();
   const { mutateAsync: createItem, isPending:isCreating } = useApiMutation<any>({ url: "teams", method: "POST" });
-  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "teams", method: "PUT" });
+  const { mutateAsync: updateItem, isPending:isUpdating } = useApiMutation<any>({ url: "teams", method: "PATCH" });
   useEffect(() => {
     if (open) {
       if (update) {
         form.setFieldsValue({
-          name_en: update.name_en,
-          name_kr: update.name_kr,
-          description_en: update.description_en,
-          description_kr: update.description_kr,
+          name: update.name,
+          description: update.description,
         });
       } else {
         form.resetFields();
@@ -63,32 +61,18 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
           layout="vertical"
         >
           <Form.Item
-            label={t('name_en')}
-            name="name_en"
+            label={t('name')}
+            name="name"
             rules={[{ required: true, message: t('placeholer_en') }]}
           >
             <Input size="large" placeholder={t('placeholer_en')}/>
           </Form.Item>
           <Form.Item
-            label={t('name_kr')}
-            name="name_kr"
-            rules={[{ required: true, message: t('placeholer_kr') }]}
-          >
-            <Input size="large" placeholder={t('placeholer_kr')}/>
-          </Form.Item>
-          <Form.Item
-            label={t('desc_en')}
-            name="description_en"
+            label={t('desc')}
+            name="description"
             rules={[{ required: true, message: t('placeholder_desc_en') }]}
           >
             <TextArea size="large" placeholder={t('placeholder_desc_en')}/>
-          </Form.Item>
-          <Form.Item
-            label={t('desc_kr')}
-            name="description_kr"
-            rules={[{ required: true, message: t('placeholder_desc_kr') }]}
-          >
-            <TextArea size="large" placeholder={t('placeholder_desc_kr')}/>
           </Form.Item>
           <Form.Item>
             <Button
