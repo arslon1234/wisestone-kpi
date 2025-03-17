@@ -90,5 +90,13 @@
   "enter_order": "주문 입력",
   "desc": "설명",
   "add": "추가",
-  "placeholder_full_name": "전체 이름을 입력하세요"
+  "placeholder_full_name": "전체 이름을 입력하세요",
+  "profile_settings": "프로필 설정",
+"profile_info": "프로필 정보",
+"change_password": "비밀번호 변경",
+"current_password": "현재 비밀번호",
+"new_password": "새 비밀번호",
+"confirm_password": "비밀번호 확인",
+"update_profile": "프로필 업데이트",
+"update_password": "비밀번호 업데이트"
 }

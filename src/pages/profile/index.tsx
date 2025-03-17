@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Card, Tabs, Form, Input, Button, message } from "antd"
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons"
-
+import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import { useTranslation } from "react-i18next"
 const { TabPane } = Tabs
 
 interface User {
@@ -12,6 +12,7 @@ interface User {
 }
 
 const ProfilePage = () => {
+  const { t } = useTranslation()
   const [user, setUser] = useState<User>({
     username: "johndoe",
     role: "Manager",
@@ -32,53 +33,43 @@ const ProfilePage = () => {
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto", padding: "20px" }}>
-      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Profile Settings</h1>
+      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>{t('profile_settings')}</h1>
       <Card>
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Profile Information" key="1">
+          <TabPane tab={t('profile_info')} key="1">
             <Form name="profile_form" initialValues={user} onFinish={onFinishProfile} layout="vertical">
-              <Form.Item name="username" label="Username">
-                <Input prefix={<UserOutlined />} disabled />
+              <Form.Item name="username" label={t('user_id')}>
+                <Input prefix={<UserOutlined />} />
               </Form.Item>
-              <Form.Item name="role" label="Role">
+              <Form.Item name="role" label={t('role')}>
                 <Input disabled />
               </Form.Item>
               <Form.Item
                 name="full_name"
-                label="Full Name"
+                label={t('full_name')}
                 rules={[{ required: true, message: "Please input your full name!" }]}
               >
                 <Input prefix={<UserOutlined />} />
               </Form.Item>
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[
-                  { required: true, message: "Please input your email!" },
-                  { type: "email", message: "Please enter a valid email!" },
-                ]}
-              >
-                <Input prefix={<MailOutlined />} />
-              </Form.Item>
               <Form.Item>
                 <Button type="primary" htmlType="submit">
-                  Update Profile
+                  {t('update_profile')}
                 </Button>
               </Form.Item>
             </Form>
           </TabPane>
-          <TabPane tab="Change Password" key="2">
+          <TabPane tab={t('change_password')} key="2">
             <Form name="password_form" onFinish={onFinishPassword} layout="vertical">
               <Form.Item
                 name="current_password"
-                label="Current Password"
+                label={t('current_password')}
                 rules={[{ required: true, message: "Please input your current password!" }]}
               >
                 <Input.Password prefix={<LockOutlined />} />
               </Form.Item>
               <Form.Item
                 name="new_password"
-                label="New Password"
+                label={t('new_password')}
                 rules={[
                   { required: true, message: "Please input your new password!" },
                   { min: 6, message: "Password must be at least 6 characters long!" },
@@ -88,7 +79,7 @@ const ProfilePage = () => {
               </Form.Item>
               <Form.Item
                 name="confirm_password"
-                label="Confirm New Password"
+                label={t('confirm_password')}
                 dependencies={["new_password"]}
                 rules={[
                   { required: true, message: "Please confirm your new password!" },

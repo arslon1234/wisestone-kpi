@@ -15,7 +15,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const { mutateAsync: createItem, isPending: isCreating } =
     useApiMutation<any>({ url: "users", method: "POST" });
   const { mutateAsync: updateItem, isPending: isUpdating } =
-    useApiMutation<any>({ url: "users", method: "PUT" });
+    useApiMutation<any>({ url: "users", method: "PATCH" });
   useEffect(() => {
     if (open) {
       if (update) {
@@ -45,7 +45,8 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
       }
     } else {
       try {
-        const res = await createItem({ data: values });
+        const payload = {...values, superuser: values.superuser || false}
+        const res = await createItem({ data: payload });
         console.log(res, "res");
         if (res.status === 200) {
           handleCancel();
@@ -113,7 +114,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
         </Form.Item>
         <Form.Item
           name="superuser"
-          // initialValue={false}
           valuePropName="checked"
         >
           <Checkbox>Super user</Checkbox>

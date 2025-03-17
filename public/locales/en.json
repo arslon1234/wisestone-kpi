@@ -90,5 +90,14 @@
   "enter_order": "Enter order",
   "desc": "Description",
   "add": "Add",
-  "placeholder_full_name": "Enter your full name"
+  "placeholder_full_name": "Enter your full name",
+  "profile_settings": "Profile Settings",
+  "profile_info": "Profile Information",
+  "change_password": "Change Password",
+  "current_password": "Current Password",
+  "new_password": "New Password",
+  "confirm_password": "Confirm Password",
+  "update_profile": "Update Profile",
+  "update_password": "Update Password"
+ 
 }
