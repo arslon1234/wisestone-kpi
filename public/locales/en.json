@@ -9,11 +9,11 @@
   "settings": "Settings",
   "dashboard": "Dashboard",
   "role": "Roles",
-  "user": "Users",
+  "user": "Employees",
   "create_role": "Create role",
-  "create_user": "Create user",
+  "create_user": "Add employee",
   "edit_role": "Edit role",
-  "edit_user": "Edit user",
+  "edit_user": "Update employee",
   "create": "Create",
   "update": "Update",
   "name_en": "Name: en",
@@ -88,5 +88,7 @@
   "download": "Download",
   "order": "Order",
   "enter_order": "Enter order",
-  "desc": "Description"
+  "desc": "Description",
+  "add": "Add",
+  "placeholder_full_name": "Enter your full name"
 }

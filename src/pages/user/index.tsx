@@ -1,5 +1,5 @@
-import { Button, Space } from "antd"
-// import { EditOutlined } from "@ant-design/icons";
+import { Button, Space, Tooltip } from "antd"
+import { EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
@@ -41,10 +41,10 @@ const Index = () => {
       search: searchFromParams,
     }));
   }, [searchParams]);
-  // const editData =(item: any)=>{
-  //   setUpdate(item)
-  //   setModalVisible(true)
-  // }
+  const editData =(item: any)=>{
+    setUpdate(item)
+    setModalVisible(true)
+  }
   const columns = [
     {
       title: "#",
@@ -61,6 +61,14 @@ const Index = () => {
       dataIndex: "full_name",
     },
     {
+      title: t('role'),
+      dataIndex: "role",
+      render: (item: any)=> {
+        if(item) return <span>{item.name}</span>;
+        return <span>no</span>
+      }
+    },
+    {
       title: "Super user",
       dataIndex: "superuser",
       render: (item: any)=> item == true ? "yes" : "no"
@@ -70,13 +78,13 @@ const Index = () => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          {/* <Tooltip title={t('update')}>
+          <Tooltip title={t('update')}>
             <Button
               type="default"
               onClick={() => editData(record)}
               icon={<EditOutlined />}
             />
-          </Tooltip> */}
+          </Tooltip>
           <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
         </Space>
       ),

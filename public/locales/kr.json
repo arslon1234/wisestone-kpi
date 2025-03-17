@@ -9,11 +9,11 @@
   "settings": "설정",
   "dashboard": "대시보드",
   "role": "역할",
-  "user": "사용자",
+  "user": "직원",
   "create_role": "역할 생성",
-  "create_user": "사용자 생성",
+  "create_user": "직원 추가",
   "edit_role": "역할 수정",
-  "edit_user": "사용자 편집",
+  "edit_user": "직원 업데이트",
   "create": "생성",
   "update": "업데이트",
   "name_en": "이름: 영어",
@@ -88,5 +88,7 @@
   "download": "다운로드",
   "order": "주문",
   "enter_order": "주문 입력",
-  "desc": "설명"
+  "desc": "설명",
+  "add": "추가",
+  "placeholder_full_name": "전체 이름을 입력하세요"
 }
