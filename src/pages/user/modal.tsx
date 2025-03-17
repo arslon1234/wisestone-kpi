@@ -10,7 +10,10 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const [form] = useForm();
   const { mutateAsync: createItem, isPending: isCreating } = useApiMutation<any>({ url: "users", method: "POST" });
   const { mutateAsync: updateItem, isPending: isUpdating } = useApiMutation<any>({ url: "users", method: "PUT" });
-
+  // const { data, isLoading } = useApiQuery<any>({
+  //   url: "role",
+  //   method: "GET",
+  // });
   useEffect(() => {
     if (open) {
       if (update) {
