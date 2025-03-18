@@ -9,7 +9,7 @@
   "settings": "설정",
   "dashboard": "대시보드",
   "role": "역할",
-  "user": "직원",
+  "user": "직원 목록",
   "create_role": "역할 생성",
   "create_user": "직원 추가",
   "edit_role": "역할 수정",
