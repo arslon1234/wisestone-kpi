@@ -3,10 +3,12 @@ import { Card, Tabs, Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useApiMutation, useApiQuery } from "@hooks";
-
+import { useNavigate } from "react-router-dom";
+import { removeItem } from "@utils/storage-service";
 const ProfilePage = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm(); // Form instance
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     username: "",
     role: "Manager",
@@ -43,7 +45,11 @@ const ProfilePage = () => {
 
   const onFinishPassword = async (values: any) => {
     const payload = { password: values.new_password };
-    await updateProfile({ data: payload });
+    const res = await updateProfile({ data: payload });
+    if(res.status === 200){
+      navigate('/')
+      removeItem('access_token')
+    }
   };
 
   const items = [

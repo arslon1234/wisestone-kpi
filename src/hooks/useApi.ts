@@ -89,8 +89,22 @@ export function useApiMutation<T>(
       Notification("success", `Success: ${(data as any)?.message || "Operation successful"}!`);
       queryClient.invalidateQueries({ queryKey: [options.url] });
     },
-    onError: (error) => {
-      Notification("error", `Error: ${error.message}`);
+    onError: async (error:any) => {
+      const errorMessage = error.message || String(error);
+      let parsedError:any = {};
+      try {
+        const jsonMatch = errorMessage.match(/API Error \(\d+\): ({.+})/);
+        if (jsonMatch && jsonMatch[1]) {
+          parsedError = JSON.parse(jsonMatch[1]);
+        }
+      } catch (e) {
+        console.log("Xatolik JSON parse qilishda muammo:", e);
+      }
+      if (parsedError.messages && Array.isArray(parsedError.messages)) {
+        parsedError.messages.forEach((msg: any) => {
+          Notification("error", `Error: ${msg.description}`);
+        });
+      }
     },
     ...mutationOptions,
   });
