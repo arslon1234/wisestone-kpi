@@ -19,7 +19,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   useEffect(() => {
     if (open) {
       if (update) {
-        console.log(update, "update");
         form.setFieldsValue({
           full_name: update.full_name,
           username: update.username,

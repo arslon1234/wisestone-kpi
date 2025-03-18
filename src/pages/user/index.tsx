@@ -1,5 +1,4 @@
-import { Button, Space, Tooltip } from "antd"
-import { EditOutlined } from "@ant-design/icons";
+import { Button, Space } from "antd"
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
@@ -41,10 +40,6 @@ const Index = () => {
       search: searchFromParams,
     }));
   }, [searchParams]);
-  const editData =(item: any)=>{
-    setUpdate(item)
-    setModalVisible(true)
-  }
   const columns = [
     {
       title: "#",
@@ -78,13 +73,6 @@ const Index = () => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Tooltip title={t('update')}>
-            <Button
-              type="default"
-              onClick={() => editData(record)}
-              icon={<EditOutlined />}
-            />
-          </Tooltip>
           <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
         </Space>
       ),
