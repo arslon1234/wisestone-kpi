@@ -7,32 +7,60 @@ import { useApiMutation, useApiQuery } from "@hooks";
 import { ModalPropType } from "@types";
 import { useQueryClient } from "@tanstack/react-query";
 
+// `result` uchun interfeys
+interface User {
+  id: number | string;
+  username: string;
+  full_name?: string | null;
+  role: {
+    name: string
+  }
+}
+
+// `useApiQuery` dan qaytadigan ma'lumotlar uchun interfeys
+interface ApiResponse {
+  message: string;
+    result: User[];
+}
+
 const Index = ({ open, handleCancel }: ModalPropType) => {
   const [params, setParams] = useState({
     multi_search: "",
   });
   const { t } = useTranslation();
   const [form] = useForm();
-  const { id } = useParams();
-  const { data } = useApiQuery<{ message: string; data: any }>({
-    url: "users",
+  const { id } = useParams<{ id: string }>();
+  const { data } = useApiQuery<ApiResponse>({
+    url: "team-members/no-team-users",
     method: "GET",
     params,
   });
-  const { mutateAsync: createItem, isPending: isCreating } =
-    useApiMutation<any>({ url: "user-teams", method: "PUT" });
-    const queryClient = useQueryClient();
-    const handleSubmit = async (values: any) => {
+  const { mutateAsync: createItem, isPending: isCreating } = useApiMutation<any>(
+    { url: "team-members", method: "POST" }
+  );
+  const queryClient = useQueryClient();
+
+  const handleSubmit = async (values: any) => {
+    const users = values.user_id.map((userId: number | string) => ({
+      user_id: userId,
+      team_lead: false,
+    }));
+
+    const payload = {
+      team_id: Number(id),
+      users: users,
+    };
     try {
-      const res = await createItem({ data: { ...values, team_id: id } });
-      if (res.status == 200) {
+      const res = await createItem({ data: payload });
+      if (res.status === 200) {
         handleCancel();
-        queryClient.invalidateQueries({ queryKey: ["users"] });
+        queryClient.invalidateQueries({ queryKey: ["team-members"] });
       }
     } catch (error) {
       console.error(error, "ERROR");
     }
   };
+
   const handleChange = (str: string) => {
     console.log(str, "val");
     setParams((prev) => ({
@@ -40,6 +68,7 @@ const Index = ({ open, handleCancel }: ModalPropType) => {
       multi_search: str,
     }));
   };
+
   return (
     <Modal
       open={open}
@@ -60,18 +89,20 @@ const Index = ({ open, handleCancel }: ModalPropType) => {
           rules={[{ required: true, message: t("select_user") }]}
         >
           <Select
+            mode="multiple" // Bir nechta tanlash uchun
             showSearch
             placeholder={t("select_user")}
             optionFilterProp="label"
             onSearch={handleChange}
+            maxTagCount="responsive"
           >
-            {data?.data?.items?.map((item: any) => (
+            {data?.result?.map((item: User) => (
               <Select.Option
                 key={item.id}
-                label={item.username}
+                label={`${item.full_name}`}
                 value={item.id}
               >
-                {item.username}
+                {item.full_name} - {item?.role?.name}
               </Select.Option>
             ))}
           </Select>

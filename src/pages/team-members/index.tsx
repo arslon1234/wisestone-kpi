@@ -11,7 +11,6 @@ import { useQueryClient } from "@tanstack/react-query";
 const Index = () => {
   const { t } = useTranslation();
   const { id } = useParams();
-  const lang = localStorage.getItem('lang')
   const [modalVisible, setModalVisible] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [update, setUpdate] = useState(null);
@@ -19,12 +18,12 @@ const Index = () => {
     page: 1,
     limit: 5,
     multi_search: "",
-    team_id: id,
   });
-  const { data, isLoading } = useApiQuery<{ message: string; data: any }>({
-    url: "users",
+  const { data, isLoading } = useApiQuery<any>({
+    url: "team-members",
     method: "GET",
     params,
+    id
   });
   const queryClient = useQueryClient();
   const { mutate: deleteItem } = useApiMutation({
@@ -34,7 +33,6 @@ const Index = () => {
   const { mutate: handleCheck } = useApiMutation({
     url: "teams",
     method: "PUT",
-   
   });
   const handleDelete = (id: any) => {
     deleteItem({ id });
@@ -70,21 +68,18 @@ const Index = () => {
     },
     {
       title: t("full_name"),
-      dataIndex: lang == 'en' ? "full_name_en" : "full_name_kr",
+      dataIndex: "member",
+      render: (member: any) => member.full_name
     },
     {
       title: t("username"),
-      dataIndex: "username",
-    },
-    {
-      title: t("email"),
-      dataIndex: "email",
+      dataIndex: "member",
+      render: (member: any) => member.username
     },
     {
       title: t("role"),
-      dataIndex: "role",
-      key: "role",
-      render: (role: any) => lang == 'en' ? role?.name_en : role?.name_kr,
+      dataIndex: "member",
+      render: (member: any) => member.role.name
     },
     {
       title: t("action"),
@@ -141,7 +136,7 @@ const Index = () => {
         </div>
       </div>
       <Table
-        data={data?.data?.items}
+        data={data?.result[0]?.members}
         columns={columns}
         pagination={{
           current: params.page,

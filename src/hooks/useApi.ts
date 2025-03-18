@@ -50,19 +50,23 @@ async function fetchApi<T>(
   }
 }
 
-
 export function useApiQuery<T>(
-  options: ApiOptions & { params?: any }, 
+  options: ApiOptions & { params?: any; id?: string | number }, // id qo'shildi
   queryOptions?: Omit<UseQueryOptions<T, Error>, "queryKey" | "queryFn">
 ) {
-  const { url, params, ...restOptions } = options;
-  const queryString = params 
-    ? "?" + new URLSearchParams(params as Record<string, string>).toString() 
+  const { url, params, id, ...restOptions } = options;
+
+  // URL ni id va params ga qarab shakllantirish
+  const baseUrl = id ? `${url}/${id}` : url;
+  const queryString = params
+    ? "?" + new URLSearchParams(params as Record<string, string>).toString()
     : "";
 
+  const fullUrl = `${baseUrl}${queryString}`;
+
   return useQuery<T, Error>({
-    queryKey: [url, params],
-    queryFn: () => fetchApi<T>({ ...restOptions, url: `${url}${queryString}` }),
+    queryKey: [url, id, params], // id ni queryKey ga qo'shdik
+    queryFn: () => fetchApi<T>({ ...restOptions, url: fullUrl }),
     ...queryOptions,
   });
 }
