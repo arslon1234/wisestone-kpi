@@ -11,14 +11,14 @@ import { routes } from "../../router/routes";
 const { Option } = Select;
 const { Header, Sider, Content } = Layout;
 import { ProfileDropdown } from "@components";
+
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState("");
-  const [language, setLanguage] = useState(
-    localStorage.getItem("lang") || "en"
-  );
+  const [language, setLanguage] = useState(localStorage.getItem("lang") || "en");
   const { i18n, t } = useTranslation();
+
   useEffect(() => {
     // Hozirgi `pathname` bo‘yicha to‘g‘ri `key` ni topish
     routes.forEach((item, index) => {
@@ -33,14 +33,17 @@ const Index = () => {
       }
     });
   }, [location.pathname]);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
     i18n.changeLanguage(value);
     localStorage.setItem("lang", value);
   };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -61,11 +64,19 @@ const Index = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: collapsed ? "center" : "space-around",
+            justifyContent: collapsed ? "center" : "flex-start",
             padding: collapsed ? "16px 8px" : "20px",
             marginBottom: "16px",
+            background: "#001529", // Dark tema uchun fon rangi
+            color: "#fff", // Matn rangi oq
+            fontSize: collapsed ? "20px" : "24px", // Matn hajmi
+            fontWeight: "bold", // Qalin shrift
+            letterSpacing: "1px", // Harflar orasidagi masofa
+            textTransform: "uppercase" as const, // Barcha harflar katta
           }}
-        ></div>
+        >
+          KPI
+        </div>
         <Menu
           theme="dark"
           mode="inline"
