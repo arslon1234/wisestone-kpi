@@ -98,6 +98,6 @@
   "new_password": "New Password",
   "confirm_password": "Confirm Password",
   "update_profile": "Update Profile",
-  "update_password": "Update Password"
- 
+  "update_password": "Update Password",
+  "members": "members"
 }

@@ -25,7 +25,17 @@
 .search-input{
   width: 400px;
 }
-
+.clickable-row:hover {
+  cursor: pointer;
+  background-color: #fafafa;
+}
+.team-lead-row {
+  background-color: #e6f7ff; /* Och ko'k fon */
+  font-weight: bold; /* Qalin shrift */
+}
+.team-lead-row:hover {
+  background-color: #d9f0ff; /* Hover effekti */
+}
 @media (max-width: 1200px) {
   .search-input{
     width: 100%;

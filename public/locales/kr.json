@@ -98,5 +98,6 @@
 "new_password": "새 비밀번호",
 "confirm_password": "비밀번호 확인",
 "update_profile": "프로필 업데이트",
-"update_password": "비밀번호 업데이트"
+"update_password": "비밀번호 업데이트",
+"members": "멤버"
 }

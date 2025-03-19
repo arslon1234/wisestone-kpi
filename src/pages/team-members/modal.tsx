@@ -39,7 +39,6 @@ const Index = ({ open, handleCancel }: ModalPropType) => {
     { url: "team-members", method: "POST" }
   );
   const queryClient = useQueryClient();
-
   const handleSubmit = async (values: any) => {
     const users = values.user_id.map((userId: number | string) => ({
       user_id: userId,
@@ -52,7 +51,8 @@ const Index = ({ open, handleCancel }: ModalPropType) => {
     };
     try {
       const res = await createItem({ data: payload });
-      if (res.status === 200) {
+      console.log(res.status)
+      if (res.status === 201) {
         handleCancel();
         queryClient.invalidateQueries({ queryKey: ["team-members"] });
       }
