@@ -58,9 +58,17 @@ const Index = () => {
     {
       title: t('role'),
       dataIndex: "role",
-      render: (item: any)=> {
-        if(item) return <span>{item.name}</span>;
+      render: (role: any)=> {
+        if(role) return <span>{role.name}</span>;
         return <span>no</span>
+      }
+    },
+    {
+      title: t('team'),
+      dataIndex: "my_team",
+      render: (my_team: any)=> {
+        if(my_team) return <span>{my_team?.name}</span>;
+        return <span>---</span>
       }
     },
     {
