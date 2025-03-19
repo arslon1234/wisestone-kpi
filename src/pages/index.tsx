@@ -7,11 +7,12 @@ const Dashboard = lazy(() => import('./dashboard'));
 const Role = lazy(() => import('./role'));
 const User = lazy(() => import('./user'));
 const Teams = lazy(() => import('./teams'));
-const TeamMembers = lazy(() => import('./team-members'));
+const TeamMembers = lazy(() => import('./team-members/index'));
+const UserTeamMembers = lazy(() => import('./team-members/members'));
 const Profile = lazy(() => import('./profile'));
 const KpiEstablish = lazy(() => import('./kpi-establish'));
 const Division = lazy(() => import('./establish-process'));
 const TableEstablishment = lazy(() => import('./table-establishment'));
 const EstablishProgress = lazy(() => import('./establish-progress'));
 const TeamProgress = lazy(() => import('./teams/team-progress'));
-export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Profile, KpiEstablish, Division, TableEstablishment, EstablishProgress,TeamProgress}
+export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Profile, KpiEstablish, Division, TableEstablishment, EstablishProgress,TeamProgress, UserTeamMembers}

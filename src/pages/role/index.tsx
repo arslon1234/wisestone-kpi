@@ -1,30 +1,36 @@
-import { Button, Space, Tooltip } from "antd"
+import { Button, Space, Tooltip } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete } from "@components";
-import Modal from './modal'
+import Modal from "./modal";
+import { getItem } from "@utils/storage-service";
 
 const Index = () => {
-  const {t} = useTranslation()
-  const [modalVisible, setModalVisible] = useState(false)
+  const { t } = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [update,setUpdate] = useState(null)
+  const [update, setUpdate] = useState(null);
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
   });
+  const super_user = getItem("super");
+  console.log(super_user, 'user')
   const { data, isLoading } = useApiQuery<any>({
     url: "roles",
     method: "GET",
     params,
   });
-  const { mutate: deleteItem } = useApiMutation({ url: "roles", method: "DELETE"});
-  const handleDelete =(id: any)=>{
-    deleteItem({id})
-  }
+  const { mutate: deleteItem } = useApiMutation({
+    url: "roles",
+    method: "DELETE",
+  });
+  const handleDelete = (id: any) => {
+    deleteItem({ id });
+  };
   useEffect(() => {
     const pageFromParams = searchParams.get("page") || "1";
     const limitFromParams = searchParams.get("limit") || "5";
@@ -36,10 +42,10 @@ const Index = () => {
       search: searchFromParams,
     }));
   }, [searchParams]);
-  const editData =(item: any)=>{
-    setUpdate(item)
-    setModalVisible(true)
-  }
+  const editData = (item: any) => {
+    setUpdate(item);
+    setModalVisible(true);
+  };
   const columns = [
     {
       title: "#",
@@ -48,11 +54,11 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t('name'),
+      title: t("name"),
       dataIndex: "name",
     },
     {
-      title: t('order'),
+      title: t("order"),
       dataIndex: "order_priority",
     },
     {
@@ -60,19 +66,22 @@ const Index = () => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Tooltip title={t('update')}>
+          <Tooltip title={t("update")}>
             <Button
               type="default"
               onClick={() => editData(record)}
               icon={<EditOutlined />}
             />
           </Tooltip>
-          <ConfirmDelete id={record.id} deleteItem={(id: any)=>handleDelete(id)} />
+          <ConfirmDelete
+            id={record.id}
+            deleteItem={(id: any) => handleDelete(id)}
+          />
         </Space>
       ),
     },
   ];
-  const handleTableChange =(pagination: any)=>{
+  const handleTableChange = (pagination: any) => {
     const { current = 1, pageSize = 5 } = pagination;
     setParams((prev) => ({
       ...prev,
@@ -83,22 +92,30 @@ const Index = () => {
       page: String(current),
       limit: String(pageSize),
     });
-  }
-  const handleCancel =()=>{
-    setModalVisible(false)
-    setUpdate(null)
-  }
+  };
+  const handleCancel = () => {
+    setModalVisible(false);
+    setUpdate(null);
+  };
   return (
     <>
-    <Modal open={modalVisible} update={update} handleCancel={handleCancel}/>
-    <div className="wrapper">
-        <h1>{t('role')}</h1>
-        <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
-          {t('create_role')}
-        </Button>
-    </div>
-    <Table data={data?.result}
-        columns={columns} pagination={{
+      <Modal open={modalVisible} update={update} handleCancel={handleCancel} />
+      <div className="wrapper">
+        <h1>{t("role")}</h1>
+        {super_user == 'true' && (
+          <Button
+            type="primary"
+            className="btn"
+            onClick={() => setModalVisible(true)}
+          >
+            {t("create_role")}
+          </Button>
+        )}
+      </div>
+      <Table
+        data={data?.result}
+        columns={columns}
+        pagination={{
           current: params.page,
           pageSize: params.limit,
           total: data?.data?.count,
@@ -107,9 +124,9 @@ const Index = () => {
         }}
         loading={isLoading}
         onChange={handleTableChange}
-        />
+      />
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

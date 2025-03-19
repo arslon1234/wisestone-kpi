@@ -7,10 +7,11 @@ import {
 import { useTranslation } from "react-i18next";
 import { Button, Layout, theme, Menu, Select } from "antd";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { routes } from "../../router/routes";
+import getVisibleRoutes from "../../router/routes"; // routes o‘rniga getVisibleRoutes import qilinadi
+import { ProfileDropdown } from "@components";
+
 const { Option } = Select;
 const { Header, Sider, Content } = Layout;
-import { ProfileDropdown } from "@components";
 
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -19,20 +20,23 @@ const Index = () => {
   const [language, setLanguage] = useState(localStorage.getItem("lang") || "en");
   const { i18n, t } = useTranslation();
 
+  // Filtrlangan marshrutlarni olish
+  const visibleRoutes:any = getVisibleRoutes();
+
   useEffect(() => {
     // Hozirgi `pathname` bo‘yicha to‘g‘ri `key` ni topish
-    routes.forEach((item, index) => {
+    visibleRoutes.forEach((item:any, index:number) => {
       if (item.path === location.pathname) {
         setSelectedKey(index.toString());
       } else if (item.children) {
-        item.children.forEach((child, childIndex) => {
+        item.children.forEach((child:any, childIndex:number) => {
           if (child.path === location.pathname) {
             setSelectedKey(`${index}-${childIndex}`);
           }
         });
       }
     });
-  }, [location.pathname]);
+  }, [location.pathname, visibleRoutes]); // visibleRoutes qo‘shildi
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -67,12 +71,12 @@ const Index = () => {
             justifyContent: collapsed ? "center" : "flex-start",
             padding: collapsed ? "16px 8px" : "20px",
             marginBottom: "16px",
-            background: "#001529", // Dark tema uchun fon rangi
-            color: "#fff", // Matn rangi oq
-            fontSize: collapsed ? "20px" : "24px", // Matn hajmi
-            fontWeight: "bold", // Qalin shrift
-            letterSpacing: "1px", // Harflar orasidagi masofa
-            textTransform: "uppercase" as const, // Barcha harflar katta
+            background: "#001529",
+            color: "#fff",
+            fontSize: collapsed ? "20px" : "24px",
+            fontWeight: "bold",
+            letterSpacing: "1px",
+            textTransform: "uppercase" as const,
           }}
         >
           KPI
@@ -81,7 +85,7 @@ const Index = () => {
           theme="dark"
           mode="inline"
           selectedKeys={[selectedKey]}
-          items={routes.map((item, index) => ({
+          items={visibleRoutes.map((item:any, index:number) => ({
             key: index.toString(),
             icon: item.icon,
             label: item.children ? (
@@ -90,7 +94,7 @@ const Index = () => {
               <NavLink to={item.path}>{t(item.title)}</NavLink>
             ),
             children: item.children
-              ? item.children.map((child, childIndex) => ({
+              ? item.children.map((child:any, childIndex:number) => ({
                   key: `${index}-${childIndex}`,
                   label: <NavLink to={child.path}>{t(child.title)}</NavLink>,
                 }))

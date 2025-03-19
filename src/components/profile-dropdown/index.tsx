@@ -30,6 +30,7 @@ const ProfileDropdown = () => {
         navigate("/");
         removeItem("access_token");
         removeItem('user_id')
+        removeItem('super')
       },
       onCancel() {
         console.log("Cancel clicked");

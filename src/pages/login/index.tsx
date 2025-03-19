@@ -3,26 +3,38 @@ import { Form, Input, Button, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useApiMutation } from "@hooks";
 import { setItem } from "@utils/storage-service";
-import { useNavigate } from "react-router-dom"
-// import logo from "../../assets/wisestone.png";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 interface LoginFormValues {
   username: string;
   password: string;
 }
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate()
-  const { mutateAsync: createItem, isPending } = useApiMutation<any>({ url: "auth/login", method: "POST" });
+  const navigate = useNavigate();
+  const { mutateAsync: login, isPending: isLoginPending } = useApiMutation<any>({
+    url: "auth/login",
+    method: "POST",
+  });
+  const { mutateAsync: fetchUser, isPending: isUserPending } = useApiMutation<any>({
+    url: "users/me",
+    method: "GET",
+  });
+
   const onFinish = async (values: LoginFormValues) => {
     try {
-      const result = await createItem({ data: values });
-      if(result?.access_token){
-        setItem('access_token', result?.access_token)
-        setItem('user_id', values.username)
-        navigate('/layout')
+      const loginResult = await login({ data: values });
+      if (loginResult?.access_token) {
+        setItem("access_token", loginResult.access_token);
+        setItem("user_id", values.username);
+
+        // Login muvaffaqiyatli bo'lgandan keyin users/me so'rovini jo'natamiz
+        const userData = await fetchUser({});
+        setItem('super', userData.result[0].superuser)
+        navigate("/layout");
       }
-      console.log(result)
+      console.log("Login result:", loginResult);
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -30,10 +42,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-wrapper">
-      <div
-      className="wrapper-item"
-      >
-        {/* <img src={logo} alt="wisestone-logo" /> */}
+      <div className="wrapper-item">
         <Card style={{ width: "100%" }}>
           <h2
             style={{
@@ -88,7 +97,7 @@ const LoginPage: React.FC = () => {
                 type="primary"
                 htmlType="submit"
                 style={{ width: "100%" }}
-                loading={isPending}
+                loading={isLoginPending || isUserPending} // Login va users/me so'rovlari uchun loading
               >
                 Submit
               </Button>
