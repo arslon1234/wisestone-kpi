@@ -1,4 +1,4 @@
-import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, SettingOutlined, PieChartOutlined } from "@ant-design/icons";
 
 // localStorage dan status olish uchun yordamchi funksiya
 const getUserStatus = () => {
@@ -12,6 +12,28 @@ export const routes = [
     path: "/layout",
     icon: <AppstoreOutlined />,
     visible: () => true, // Har doim ko‘rinadi
+  },
+  {
+    title: "kpi_process",
+    icon: <PieChartOutlined />,
+    visible: () => true, // Admin va user uchun
+    children: [
+      {
+        path: "/layout/yearly-kpi",
+        title: "yearly_kpi",
+        visible: () => true,
+      },
+      {
+        path: "/layout/monthly-kpi",
+        title: "monthly_kpi",
+        visible: () => true,
+      },
+      {
+        path: "/layout/Approved",
+        title: "approved",
+        visible: () => true,
+      },
+    ],
   },
   {
     title: "settings",

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
-import { Table, ConfirmDelete } from "@components";
+import { Table, ConfirmDelete, Search } from "@components";
 import { exportToExcel } from "@utils/exel-export";
 import Modal from "./modal";
 import Upload from "./upload";
@@ -20,12 +20,14 @@ const Index = () => {
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
+    username__q: ""
   });
   const { data, isLoading } = useApiQuery<any>({
     url: "users",
     method: "GET",
     params,
   });
+  console.log(data, 'data')
   const users = data?.result.filter((item: any) => item.username !== user_id);
   const { mutate: deleteItem } = useApiMutation({
     url: "users",
@@ -131,6 +133,8 @@ const Index = () => {
       {upload && <Upload isOpen={upload} handleCancel={handleCancelUpload} />}
       <div className="wrapper">
         <h1>{t("user")}</h1>
+        <div className="search_btn">
+        <Search searchKey="username__q" params={params} setParams={setParams} />
         {super_user == "true" && (
           <div className="wrapper-btn">
             <Button
@@ -157,6 +161,7 @@ const Index = () => {
             </Button>
           </div>
         )}
+        </div>
       </div>
       <Table
         data={users}

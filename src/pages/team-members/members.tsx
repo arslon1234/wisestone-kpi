@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery } from "@hooks";
-import { Table, Search } from "@components";
+import { Table } from "@components";
 const Index = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -92,7 +92,7 @@ const Index = () => {
         <h2>{data?.result[0]?.team?.name} {t("members")}</h2>
         </div>
         <div className="search_btn">
-          <Search params={params} setParams={setParams} />
+          {/* <Search params={params} setParams={setParams} /> */}
         </div>
       </div>
       <Table

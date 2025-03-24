@@ -99,5 +99,8 @@
   "confirm_password": "Confirm Password",
   "update_profile": "Update Profile",
   "update_password": "Update Password",
-  "members": "members"
+  "members": "members",
+  "kpi_process": "KPI process",
+  "monthly_kpi": "Monthly KPIs",
+  "approved": "Approved"
 }

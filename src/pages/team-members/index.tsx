@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
-import { Table, ConfirmDelete, Search } from "@components";
+import { Table, ConfirmDelete } from "@components";
 import { useQueryClient } from "@tanstack/react-query";
 import Modal from "./modal";
 
@@ -153,7 +153,7 @@ const Index = () => {
         <h2>{data?.result[0]?.team?.name} {t("members")}</h2>
         </div>
         <div className="search_btn">
-          <Search params={params} setParams={setParams} />
+          {/* <Search params={params} setParams={setParams} /> */}
           <Button type="primary" className="btn" onClick={() => setModalVisible(true)}>
             {t("create_team_member")}
           </Button>

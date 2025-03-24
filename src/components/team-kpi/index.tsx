@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
-import { Table, ConfirmDelete, Search } from "@components";
+import { Table, ConfirmDelete } from "@components";
 
 const Index = ({type}: {type: string}) => {
   const {t} = useTranslation()
@@ -118,7 +118,7 @@ const Index = ({type}: {type: string}) => {
     <div className="wrapper">
         <h1>{t('team')}</h1>
        <div className="search_btn">
-       <Search params={params} setParams={setParams} />
+       {/* <Search params={params} setParams={setParams} /> */}
         {/* <Button type="primary" className="btn" onClick={()=>setModalVisible(true)}>
           {t('create_team')}
         </Button> */}

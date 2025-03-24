@@ -16,7 +16,7 @@ const Index = () => {
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
-    multi_search: "",
+    name__q: "",
   });
   const { data, isLoading } = useApiQuery<any>({
     url: "teams",
@@ -118,7 +118,7 @@ const Index = () => {
       <div className="wrapper">
         <h1>{t("team")}</h1>
         <div className="search_btn">
-          <Search params={params} setParams={setParams} />
+          <Search searchKey="name__q" params={params} setParams={setParams} />
           <Button type="primary" className="btn" onClick={() => setModalVisible(true)}>
             {t("create_team")}
           </Button>

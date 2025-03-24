@@ -99,5 +99,8 @@
 "confirm_password": "비밀번호 확인",
 "update_profile": "프로필 업데이트",
 "update_password": "비밀번호 업데이트",
-"members": "멤버"
+"members": "멤버",
+"kpi_process": "KPI 프로세스",
+"monthly_kpi": "월간 KPI",
+"approved": "승인됨"
 }
