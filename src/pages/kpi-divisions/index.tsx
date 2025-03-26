@@ -1,12 +1,11 @@
-import { Button, Space, Tooltip } from "antd";
+import { Button, Space } from "antd";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete } from "@components";
 import Modal from "./modal";
 import { getItem } from "@utils/storage-service";
-import { TagsOutlined } from "@ant-design/icons";
 
 const Index = () => {
   const { t } = useTranslation();
@@ -17,16 +16,15 @@ const Index = () => {
     page: 1,
     limit: 5,
   });
-  const navigate = useNavigate()
   const super_user = getItem("super");
   console.log(super_user, 'user')
   const { data, isLoading } = useApiQuery<any>({
-    url: "yearly-goals",
+    url: "goal-categories",
     method: "GET",
     params,
   });
   const { mutate: deleteItem } = useApiMutation({
-    url: "yearly-goals",
+    url: "goal-categories",
     method: "DELETE",
   });
   const handleDelete = (id: any) => {
@@ -51,8 +49,8 @@ const Index = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: t("year"),
-      dataIndex: "year",
+      title: t("name"),
+      dataIndex: "name",
     },
     {
       title: t("action"),
@@ -63,13 +61,6 @@ const Index = () => {
             id={record.id}
             deleteItem={(id: any) => handleDelete(id)}
           />
-           <Tooltip title={t("process")}>
-         <Button
-           type="default"
-           onClick={() => navigate(`/layout/yearly-kpi/${record.id}`)}
-           icon={<TagsOutlined />}
-         />
-       </Tooltip>
         </Space>
         
       ),
@@ -95,7 +86,7 @@ const Index = () => {
     <>
       <Modal open={modalVisible} update={update} handleCancel={handleCancel} />
       <div className="wrapper">
-        <h1>{t("yearly_kpi")}</h1>
+        <h1>{t("divisions")}</h1>
         {super_user == 'true' && (
           <Button
             type="primary"

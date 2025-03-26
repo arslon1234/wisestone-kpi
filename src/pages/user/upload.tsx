@@ -14,7 +14,6 @@ const CsvUploadModal = ({ isOpen, handleCancel }: any) => {
   const queryClient = useQueryClient();
   const beforeUpload = (file: File) => {
     const isCsv = file.type === "text/csv";
-
     if (!isCsv) {
       message.error("Only .csv files are allowed!");
       return false;

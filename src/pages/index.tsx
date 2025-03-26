@@ -14,4 +14,6 @@ const TeamProgress = lazy(() => import('./teams/team-progress'));
 const YearlyKPI = lazy(() => import('./yearly-kpi/index'));
 const MonthlyKPI = lazy(() => import('./monthly-kpi/index'));
 const Approved = lazy(() => import('./approved/index'));
-export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Profile,TeamProgress, UserTeamMembers, YearlyKPI, MonthlyKPI, Approved}
+const Category = lazy(() => import('./yearly-kpi/category'));
+const KPIDivision = lazy(() => import('./kpi-divisions/index'));
+export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Category, Profile,TeamProgress, UserTeamMembers, YearlyKPI, MonthlyKPI, Approved, KPIDivision}

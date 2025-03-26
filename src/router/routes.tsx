@@ -29,6 +29,11 @@ export const routes = [
         visible: () => true,
       },
       {
+        path: "/layout/divisions",
+        title: "divisions",
+        visible: () => true,
+      },
+      {
         path: "/layout/Approved",
         title: "approved",
         visible: () => true,
