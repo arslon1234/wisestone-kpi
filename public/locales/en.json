@@ -102,5 +102,7 @@
   "members": "members",
   "kpi_process": "KPI process",
   "monthly_kpi": "Monthly KPIs",
-  "approved": "Approved"
+  "approved": "Approved",
+  "add_goal": "Add goal",
+  "cretion_process": "KPI creation stage"
 }

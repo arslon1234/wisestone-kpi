@@ -102,5 +102,7 @@
 "members": "멤버",
 "kpi_process": "KPI 프로세스",
 "monthly_kpi": "월간 KPI",
-"approved": "승인됨"
+"approved": "승인됨",
+"add_goal": "목표 추가",
+"cretion_process": "KPI 생성 단계"
 }
