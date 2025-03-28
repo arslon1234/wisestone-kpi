@@ -18,41 +18,50 @@ const Index = () => {
     method: "GET",
     params,
   });
-  console.log(data?.result[0]?.year_goal_categories)
   const columns = [
     {
       title: t("divisions"),
       dataIndex: "category",
-      render: (item: any)=> {
-        return <span>{item.name}</span>
-      }
+      render: (item: any) => {
+        return <span>{item.name}</span>;
+      },
     },
     {
-        title: `${t("performance_goals")} ${year}`,
-        dataIndex: "goal_groups",
-        render: (item: any) => {
-          return (
-            <div >
-              {item && item.length > 0 ? (
-                item.map((goal: any, index: number) => (
-                  <div key={index} className="performance_result">
+      title: `${t("performance_goals")} ${year}`,
+      dataIndex: "goal_groups",
+      render: (item: any) => {
+        return (
+          <div>
+            {item && item.length > 0 ? (
+              item.map((goal: any, index: number) => (
+                <div key={index} className="performance_result">
+                  <div>
+                    <p className="performance_head">
+                      <CheckCircleOutlined />
+                      <span>{goal.header}</span>
+                    </p>
                     <div>
-                    <p key={index} className="performance_head">
-                    <CheckCircleOutlined/>
-                    <span>{goal.header}</span>
-                  </p>
-                  <p>{goal.description}</p>
+                      {goal.description ? (
+                        goal.description.split("\n").map((line: string, i: number) => (
+                          <p key={i}>{line}</p>
+                        ))
+                      ) : (
+                        <p>{t("no_description")}</p>
+                      )}
                     </div>
-                  <p>({t('total_ratio')} {goal.percent}%)</p>
                   </div>
-                ))
-              ) : (
-                <span>{t("no_goals")}</span> // Agar goal_groups bo‘sh bo‘lsa
-              )}
-            </div>
-          );
-        },
+                  <p>
+                    ({t("total_ratio")} {goal.percent}%)
+                  </p>
+                </div>
+              ))
+            ) : (
+              <span>{t("no_goals")}</span>
+            )}
+          </div>
+        );
       },
+    },
   ];
   const handleTableChange = (pagination: any) => {
    console.log(pagination)
