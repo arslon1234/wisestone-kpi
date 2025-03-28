@@ -1,4 +1,4 @@
-import { Button, Collapse, Card, Spin, Empty } from "antd"; // Empty qo‘shildi
+import { Button, Collapse, Card, Spin, Empty } from "antd";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { useApiQuery, useApiMutation } from "@hooks";
@@ -82,7 +82,7 @@ const Index = () => {
     setExpandedKeys(keys);
     const newKeys = keys.filter((key) => !expandedKeys.includes(key));
     if (newKeys.length > 0) {
-      fetchGroups(newKeys[0]);
+      fetchGroups(newKeys[0]); // Yangi ochilgan key uchun so‘rov
     }
   };
 
@@ -119,11 +119,11 @@ const Index = () => {
               }
             >
               <p>{group.description || t("no_description")}</p>
-              <p>(Total ratio {group?.percent}%)</p>
+              <p>({t('total_ratio')} {group?.percent}%)</p>
             </Card>
           ))
         ) : (
-          <Empty description={t("no_criteria_found")} /> // Empty komponenti qo‘shildi
+          <Empty description={t("no_criteria_found")} />
         )}
         {super_user === "true" && (
           <>
@@ -164,7 +164,11 @@ const Index = () => {
       {isCategoriesLoading ? (
         <Spin />
       ) : (
-        <Collapse items={items} onChange={handleCollapseChange} />
+        <Collapse
+          items={items}
+          onChange={handleCollapseChange}
+          accordion // Accordion xususiyati qo‘shildi
+        />
       )}
     </>
   );

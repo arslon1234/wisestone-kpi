@@ -104,5 +104,9 @@
   "monthly_kpi": "Monthly KPIs",
   "approved": "Approved",
   "add_goal": "Add goal",
-  "cretion_process": "KPI creation stage"
+  "cretion_process": "KPI creation stage",
+  "result": "Result",
+  "process": "Process",
+  "kpi_establishment": "KPI establishment",
+  "performance_goals": "Performance Goals"
 }

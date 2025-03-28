@@ -1,4 +1,4 @@
-import { Button, Space, Tooltip } from "antd";
+import { Button, Space, Tooltip, Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -6,43 +6,56 @@ import { useApiQuery, useApiMutation } from "@hooks";
 import { Table, ConfirmDelete } from "@components";
 import Modal from "./modal";
 import { getItem } from "@utils/storage-service";
-import { TagsOutlined } from "@ant-design/icons";
+import { TableOutlined, TagsOutlined } from "@ant-design/icons";
 
 const Index = () => {
   const { t } = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [update, setUpdate] = useState(null);
+  const currentYear = new Date().getFullYear(); // Joriy yil (masalan, 2025)
   const [params, setParams] = useState({
     page: 1,
     limit: 5,
+    year__eq: String(currentYear), // Default holatda joriy yil
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const super_user = getItem("super");
-  console.log(super_user, 'user')
+
   const { data, isLoading } = useApiQuery<any>({
     url: "yearly-goals",
     method: "GET",
     params,
   });
+
   const { mutate: deleteItem } = useApiMutation({
     url: "yearly-goals",
     method: "DELETE",
   });
+
   const handleDelete = (id: any) => {
     deleteItem({ id });
   };
+
   useEffect(() => {
     const pageFromParams = searchParams.get("page") || "1";
     const limitFromParams = searchParams.get("limit") || "5";
-    const searchFromParams = searchParams.get("search") || "";
+    const yearFromParams = searchParams.get("year__eq") || String(currentYear);
     setParams((prev) => ({
       ...prev,
       page: Number(pageFromParams),
       limit: Number(limitFromParams),
-      search: searchFromParams,
+      year__eq: yearFromParams,
     }));
-  }, [searchParams]);
+    if (!searchParams.get("year__eq")) {
+      setSearchParams({
+        page: String(pageFromParams),
+        limit: String(limitFromParams),
+        year__eq: String(currentYear),
+      });
+    }
+  }, [searchParams, currentYear]);
+
   const columns = [
     {
       title: "#",
@@ -63,18 +76,25 @@ const Index = () => {
             id={record.id}
             deleteItem={(id: any) => handleDelete(id)}
           />
-           <Tooltip title={t("process")}>
-         <Button
-           type="default"
-           onClick={() => navigate(`/layout/yearly-kpi/${record.id}`)}
-           icon={<TagsOutlined />}
-         />
-       </Tooltip>
+          <Tooltip title={t("process")}>
+            <Button
+              type="default"
+              onClick={() => navigate(`/layout/yearly-kpi/${record.id}`)}
+              icon={<TagsOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title={t("kpi_establishment")}>
+            <Button
+              type="default"
+              onClick={() => navigate(`/layout/yearly-kpis/${record.year}`)}
+              icon={<TableOutlined />}
+            />
+          </Tooltip>
         </Space>
-        
       ),
     },
   ];
+
   const handleTableChange = (pagination: any) => {
     const { current = 1, pageSize = 5 } = pagination;
     setParams((prev) => ({
@@ -85,26 +105,62 @@ const Index = () => {
     setSearchParams({
       page: String(current),
       limit: String(pageSize),
+      year__eq: params.year__eq,
     });
   };
+
+  const handleYearChange = (value: string) => {
+    setParams((prev) => ({
+      ...prev,
+      page: 1,
+      year__eq: value,
+    }));
+    setSearchParams({
+      page: "1",
+      limit: String(params.limit),
+      year__eq: value,
+    });
+  };
+
   const handleCancel = () => {
     setModalVisible(false);
     setUpdate(null);
   };
+
+  // Yillar ro‘yxati (2020 dan 2030 yilgacha)
+  const years = Array.from({ length: 2030 - 2019 + 1 }, (_, i) => ({
+    value: String(2020 + i),
+    label: String(2020 + i),
+  }));
+
   return (
     <>
       <Modal open={modalVisible} update={update} handleCancel={handleCancel} />
       <div className="wrapper">
         <h1>{t("yearly_kpi")}</h1>
-        {super_user == 'true' && (
-          <Button
-            type="primary"
-            className="btn"
-            onClick={() => setModalVisible(true)}
+        <Space>
+          {super_user === "true" && (
+            <Button
+              type="primary"
+              className="btn"
+              onClick={() => setModalVisible(true)}
+            >
+              {t("create")}
+            </Button>
+          )}
+          <Select
+            placeholder={t("select_year")}
+            style={{ width: 120 }}
+            onChange={handleYearChange}
+            value={params.year__eq || undefined}
           >
-            {t("create")}
-          </Button>
-        )}
+            {years.map((year) => (
+              <Select.Option key={year.value} value={year.value}>
+                {year.label}
+              </Select.Option>
+            ))}
+          </Select>
+        </Space>
       </div>
       <Table
         data={data?.result}

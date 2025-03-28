@@ -15,7 +15,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const handleSubmit = async (values: any) => {
     try {
       const res = await createItem({ data: { year: values.year.format("YYYY") } });
-      if (res.status === 200) {
+      if (res.status === 201) {
         handleCancel();
       }
     } catch (error) {

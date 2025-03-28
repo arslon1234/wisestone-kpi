@@ -36,6 +36,20 @@
 .team-lead-row:hover {
   background-color: #d9f0ff; /* Hover effekti */
 }
+.performance_result{
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.performance_head{
+  display: flex;
+  gap: 5px;
+}
+
 @media (max-width: 1200px) {
   .search-input{
     width: 100%;

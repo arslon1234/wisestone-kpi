@@ -104,5 +104,9 @@
 "monthly_kpi": "월간 KPI",
 "approved": "승인됨",
 "add_goal": "목표 추가",
-"cretion_process": "KPI 생성 단계"
+"cretion_process": "KPI 생성 단계",
+"result": "결과",
+"process": "프로세스",
+"kpi_establishment": "KPI 설정",
+ "performance_goals": "성과 목표"
 }
