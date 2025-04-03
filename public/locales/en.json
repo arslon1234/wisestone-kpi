@@ -108,5 +108,17 @@
   "result": "Result",
   "process": "Process",
   "kpi_establishment": "KPI establishment",
-  "performance_goals": "Performance Goals"
+  "performance_goals": "Performance Goals",
+  "select_goal": "Select goal",
+  "select_month": "Select month",
+  "select_team": "Select team",
+  "goal_content": "Goal content",
+  "add_task": "Add task",
+  "enter_task": "Enter task",
+  "select_type": "Select type",
+  "select_type_value": "Select value",
+  "month": "Month",
+  "team_name": "Team name",
+  "category": "Category",
+  "task_value": "Task value"
 }

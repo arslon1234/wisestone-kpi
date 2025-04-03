@@ -108,5 +108,14 @@
 "result": "결과",
 "process": "프로세스",
 "kpi_establishment": "KPI 설정",
- "performance_goals": "성과 목표"
+ "performance_goals": "성과 목표",
+ "select_goal": "목표 선택",
+ "select_month": "월 선택",
+ "select_team": "팀 선택",
+ "goal_content": "목표 내용",
+ "add_task": "작업 추가",
+ "enter_task": "작업 입력",
+ "select_type": "유형 선택",
+ "select_type_value": "값 선택",
+  "month": "월"
 }

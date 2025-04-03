@@ -17,5 +17,6 @@ const Approved = lazy(() => import('./approved/index'));
 const Category = lazy(() => import('./yearly-kpi/category'));
 const KPIDivision = lazy(() => import('./kpi-divisions/index'));
 const YearlyResult = lazy(() => import('./yearly-kpi/yearly-result'));
+const MonthlyKpiItem = lazy(() => import('./monthly-kpi/kpi-items'));
 
-export {Login,LayoutMenu, Dashboard, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Category, Profile,TeamProgress, UserTeamMembers,YearlyResult, YearlyKPI, MonthlyKPI, Approved, KPIDivision}
+export {Login,LayoutMenu, Dashboard, MonthlyKpiItem, ProtectedAuth, ProtectedLayout, Role, User, Teams, TeamMembers, Category, Profile,TeamProgress, UserTeamMembers,YearlyResult, YearlyKPI, MonthlyKPI, Approved, KPIDivision}
