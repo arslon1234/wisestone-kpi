@@ -38,7 +38,7 @@ const Index = () => {
   });
 
   const handleDelete = (id: any) => {
-    deleteItem({ id });
+    deleteItem({ id, params: { year: currentYear, month: currentMonth } });
   };
 
   useEffect(() => {
@@ -63,7 +63,10 @@ const Index = () => {
     {
       title: t("team_name"),
       dataIndex: "name",
-      // render: (item: any) => item?.name,
+    },
+    {
+      title: t("status"),
+      dataIndex: "team_kpi_status",
     },
     {
       title: t("action"),

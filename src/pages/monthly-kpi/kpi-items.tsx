@@ -3,9 +3,12 @@ import { useApiQuery } from "@hooks";
 import { useState } from "react";
 import { useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next";
+import { Button } from "antd";
+import Modal from './approve'
 const Index = () => {
   const {id, year, month} = useParams()
   const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
   const [params] = useState({
     year: year,
     month_num: month,
@@ -54,17 +57,20 @@ const Index = () => {
   }
   return (
     <div>
+      {open && <Modal open={open} handleCancel={()=> setOpen(false)}/>}
+      <div className="wrapper">
       <h1>{data?.result[0]?.name}  {month}-{year}</h1>
+      <Button
+            type="primary"
+            className="btn"
+            onClick={()=>setOpen(true)}
+          >
+            {t("approve")}
+          </Button>
+      </div>
       <Table
         data={data?.result[0].team_monthly_kpi_goals}
         columns={columns}
-        // pagination={{
-        //   current: params.page,
-        //   pageSize: params.limit,
-        //   total: data?.data?.count,
-        //   showSizeChanger: true,
-        //   pageSizeOptions: ["2", "5", "7", "10", "12"],
-        // }}
         loading={isLoading}
         onChange={handleTableChange}
       />
