@@ -22,7 +22,8 @@ const Index = () => {
     month_num: currentMonth,
   });
   const super_user = getItem("super");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const { data, isLoading } = useApiQuery<any>({
     url: "monthly-goals",
     method: "GET",
@@ -64,19 +65,14 @@ const Index = () => {
       dataIndex: "name",
       // render: (item: any) => item?.name,
     },
-    // {
-    //   title: t("year"),
-    //   dataIndex: "year",
-    // },
-    // {
-    //   title: t("month"),
-    //   dataIndex: "month_num",
-    // },
     {
       title: t("action"),
       key: "action",
       render: (_: any, record: any) => (
-        <Space size="middle">
+        <Space
+          size="middle"
+          onClick={(e) => e.stopPropagation()} // Navigatsiyani bloklash
+        >
           <ConfirmDelete
             id={record.id}
             deleteItem={(id: any) => handleDelete(id)}
@@ -103,19 +99,18 @@ const Index = () => {
     setModalVisible(false);
     setUpdate(null);
   };
-  // Bitta DatePicker bilan yil va oyni tanlash
+
   const handleDateChange = (date: moment.Moment | null) => {
     if (date) {
       const newYear = date.format("YYYY");
-      const newMonth = parseInt(date.format("MM")); // Number sifatida
+      const newMonth = parseInt(date.format("MM"));
       setParams((prev) => ({
         ...prev,
         year: newYear,
         month_num: newMonth,
-        page: 1, // Yangi filter qo‘yilganda sahifani 1 ga qaytarish
+        page: 1,
       }));
     } else {
-      // Agar filter tozalansa, joriy yil va oyga qaytish
       setParams((prev) => ({
         ...prev,
         year: String(currentYear),
@@ -136,11 +131,11 @@ const Index = () => {
           <Col>
             <DatePicker
               picker="month"
-              format="YYYY-MM" // Ko‘rinish uchun format
+              format="YYYY-MM"
               onChange={handleDateChange}
               placeholder={t("select_month")}
               style={{ width: 150 }}
-              allowClear // Tozalash imkoni
+              allowClear
             />
           </Col>
           {super_user === "true" && (
@@ -169,11 +164,10 @@ const Index = () => {
         loading={isLoading}
         onChange={handleTableChange}
         rowClassName="clickable-row"
-        onRow={
-          (record: any) => ({
-            onClick: () => navigate(`/layout/monthly-kpi/${record.id}/${params.year}/${params.month_num}`),
-          })
-        }
+        onRow={(record: any) => ({
+          onClick: () =>
+            navigate(`/layout/monthly-kpi/${record.id}/${params.year}/${params.month_num}`),
+        })}
       />
     </>
   );

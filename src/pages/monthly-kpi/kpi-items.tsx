@@ -26,7 +26,11 @@ const Index = () => {
     {
       title: t("ratio"),
       dataIndex: "yearly_group",
-      render: (item: any) => item?.percent,
+      render: (item: any) => item?.percent + "%",
+    },
+    {
+      title: t("goal_content"),
+      dataIndex: "goal_content",
     },
     {
       title: t("task_value"),
@@ -35,8 +39,9 @@ const Index = () => {
         return item.map((task:any) => (
           <div>
             <p style={{display: "flex", gap: "5px"}}>
-            <span>{task.value_type}</span>
-            <span>{task.value}</span>
+            <span>{task.content}</span>
+            <span>{task.value}{task.value_type == 'ratio' ? '%' : 'times' }</span>
+            <span>or</span>
             <span>{task.value_num_type}</span>
           </p>
           </div>
@@ -49,7 +54,7 @@ const Index = () => {
   }
   return (
     <div>
-      <h1>{data?.result[0]?.name}</h1>
+      <h1>{data?.result[0]?.name}  {month}-{year}</h1>
       <Table
         data={data?.result[0].team_monthly_kpi_goals}
         columns={columns}

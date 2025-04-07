@@ -117,5 +117,7 @@
  "enter_task": "작업 입력",
  "select_type": "유형 선택",
  "select_type_value": "값 선택",
-  "month": "월"
+  "month": "월",
+  "category": "범주",
+  "task_value": "작업 가치"
 }

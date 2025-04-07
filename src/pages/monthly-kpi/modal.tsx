@@ -15,7 +15,7 @@ import { ModalPropType } from "@types";
 import { useApiMutation, useApiQuery } from "@hooks";
 import { useState, useEffect } from "react";
 import moment from "moment";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons"; // + ikonasi uchun
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -28,22 +28,20 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
   const [goals, setGoals] = useState<any[]>([]);
   const [teams, setTeams] = useState<any[]>([]);
 
-  const { mutateAsync: createItem, isPending: isCreating } =
-    useApiMutation<any>({
-      url: "monthly-goals",
-      method: "POST",
-    });
+  const { mutateAsync: createItem, isPending: isCreating } = useApiMutation<any>({
+    url: "monthly-goals",
+    method: "POST",
+  });
 
-  const { data: yearlyGoals, isLoading: isYearlyGoalsLoading } =
-    useApiQuery<any>({
-      url: "yearly-goals",
-      method: "GET",
-      params: {
-        ...(selectedYear ? { year__eq: selectedYear } : {}),
-        ...(selectedMonth ? { month__eq: selectedMonth } : {}),
-      },
-      enabled: !!selectedYear,
-    });
+  const { data: yearlyGoals, isLoading: isYearlyGoalsLoading } = useApiQuery<any>({
+    url: "yearly-goals",
+    method: "GET",
+    params: {
+      ...(selectedYear ? { year__eq: selectedYear } : {}),
+      ...(selectedMonth ? { month__eq: selectedMonth } : {}),
+    },
+    enabled: !!selectedYear,
+  });
 
   const { data: teamsData, isLoading: isTeamsLoading } = useApiQuery<any>({
     url: "teams",
@@ -51,7 +49,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     enabled: true,
   });
 
-  // yearlyGoals o‘zgarganda goals ni yangilash
   useEffect(() => {
     if (yearlyGoals?.result?.[0]?.year_goal_categories) {
       const allGoalGroups = yearlyGoals.result[0].year_goal_categories.flatMap(
@@ -62,7 +59,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     }
   }, [yearlyGoals]);
 
-  // teamsData o‘zgarganda teams ni yangilash
   useEffect(() => {
     if (teamsData?.result) {
       console.log("Setting teams:", teamsData.result);
@@ -119,11 +115,9 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
     }
   };
 
-  // Teams uchun qidiruv filtri
   const filterTeamOption = (input: string, option?: { children: string }) =>
     (option?.children ?? "").toLowerCase().includes(input.toLowerCase());
 
-  // Type tanlash uchun variantlar (masalan, misol uchun)
   const typeOptions = [
     { value: "text", label: "text" },
     { value: "ratio", label: "ratio" },
@@ -193,9 +187,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
                 size="large"
                 placeholder={t("select_goal")}
                 style={{ width: "100%" }}
-                disabled={
-                  !selectedYear || isYearlyGoalsLoading || goals.length === 0
-                }
+                disabled={!selectedYear || isYearlyGoalsLoading || goals.length === 0}
               >
                 {goals.map((goal) => (
                   <Option key={goal.id} value={goal.id}>
@@ -229,7 +221,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
           </Col>
         </Row>
 
-        {/* Goal Content uchun TextArea */}
         <Form.Item
           label={t("goal_content")}
           name="goalContent"
@@ -242,7 +233,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
           />
         </Form.Item>
 
-        {/* Tasks uchun dinamik maydonlar */}
         <Form.List name="tasks">
           {(fields, { add, remove }) => (
             <>
@@ -267,38 +257,67 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
                       </Select>
                     </Form.Item>
                   </Col>
-                  <Col span={10}>
-                    <Form.Item
-                      {...field}
-                      name={[field.name, "value"]}
-                      rules={[{ required: true, message: t("enter_task") }]}
-                    >
-                      <Input
-                        size="large"
-                        placeholder={t("enter_task")}
-                        style={{ width: "100%" }}
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      {...field}
-                      name={[field.name, "value_num_type"]}
-                      rules={[{ required: true, message: t("select_type") }]}
-                    >
-                      <Select
-                        size="large"
-                        placeholder={t("select_type_value")}
-                        style={{ width: "100%" }}
-                      >
-                        {typeOptionsValue.map((option) => (
-                          <Option key={option.value} value={option.value}>
-                            {option.label}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                  </Col>
+                  <Form.Item shouldUpdate noStyle>
+                    {({ getFieldValue }) => {
+                      const selectedType = getFieldValue(["tasks", field.name, "value_type"]);
+                      const showNumInput = selectedType === "number" || selectedType === "ratio";
+                      const showValueNumType = selectedType !== "text";
+
+                      return (
+                        <>
+                          <Col span={showNumInput ? 8 : showValueNumType ? 10 : 16}>
+                            <Form.Item
+                              {...field}
+                              name={[field.name, "content"]}
+                              rules={[{ required: true, message: t("enter_task") }]}
+                            >
+                              <Input
+                                size="large"
+                                placeholder={t("enter_task")}
+                                style={{ width: "100%" }}
+                              />
+                            </Form.Item>
+                          </Col>
+                          {showNumInput && (
+                            <Col span={2}>
+                              <Form.Item
+                                {...field}
+                                name={[field.name, "value"]}
+                                rules={[{ required: true, message: t("enter_num") }]}
+                              >
+                                <Input
+                                  size="large"
+                                  placeholder="..."
+                                  style={{ width: "100%" }}
+                                />
+                              </Form.Item>
+                            </Col>
+                          )}
+                          {showValueNumType && (
+                            <Col span={6}>
+                              <Form.Item
+                                {...field}
+                                name={[field.name, "value_num_type"]}
+                                rules={[{ required: true, message: t("select_type") }]}
+                              >
+                                <Select
+                                  size="large"
+                                  placeholder={t("select_type_value")}
+                                  style={{ width: "100%" }}
+                                >
+                                  {typeOptionsValue.map((option) => (
+                                    <Option key={option.value} value={option.value}>
+                                      {option.label}
+                                    </Option>
+                                  ))}
+                                </Select>
+                              </Form.Item>
+                            </Col>
+                          )}
+                        </>
+                      );
+                    }}
+                  </Form.Item>
                   <Col span={2}>
                     <Button
                       size="large"
@@ -306,7 +325,7 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
                       onClick={() => remove(field.name)}
                       icon={<MinusOutlined />}
                       style={{ width: "100%" }}
-                    ></Button>
+                    />
                   </Col>
                 </Row>
               ))}
@@ -328,7 +347,6 @@ const Index = ({ open, handleCancel, update }: ModalPropType) => {
         {(isYearlyGoalsLoading || isTeamsLoading) && (
           <Spin style={{ display: "block", margin: "10px 0" }} />
         )}
-
         <Form.Item>
           <Button
             size="large"
